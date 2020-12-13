@@ -10,8 +10,6 @@ public class BuildingPlacement : MonoBehaviour
     private TileComponent tileHit;
     private BoxCollider BuildingHit;
 
-
-
     // Start is called before the first frame update
     void Start()
     {

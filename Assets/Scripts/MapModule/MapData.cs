@@ -11,4 +11,5 @@ public class MapData
     public int columnsNumber;
     public int rowsNumber;
     public Tile[] tiles;
+    public MapHeat mapHeat;
 }

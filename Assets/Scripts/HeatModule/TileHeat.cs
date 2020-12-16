@@ -4,17 +4,10 @@ using UnityEngine;
 
 public class TileHeat : MonoBehaviour
 {
-    private float localTemperature { get; set; }
+    public float localTemperature { get; set; }
 
-    // Start is called before the first frame update
-    void Start()
+    public TileHeat()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        localTemperature = MapHeat.globalTemperature;
     }
 }

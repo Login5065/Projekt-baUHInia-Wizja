@@ -5,6 +5,7 @@ using UnityEngine;
 public class BuildingInfo : MonoBehaviour
 {
     public float price;
+    public int max;
     public float heat;
     public void changeProperty(float newPrice, float newHeat)
     {

@@ -70,5 +70,7 @@ public class BuildingPlacement : MonoBehaviour
     {
         currentBuilding = ((GameObject)Instantiate(b)).transform;
         placeableBuildings = currentBuilding.GetComponent<PlaceableBuildings>();
+        GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().Add(b);
+        GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().CheckJsonList();
     }
 }

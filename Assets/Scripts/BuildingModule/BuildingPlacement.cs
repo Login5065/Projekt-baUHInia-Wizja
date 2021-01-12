@@ -10,10 +10,16 @@ public class BuildingPlacement : MonoBehaviour
     private TileComponent tileHit;
     private BoxCollider BuildingHit;
 
+    private Budget budget;
+
+    private int budAmount = 0;
+    private int nisbudAmount = 0;
+    private int buffer;
+
     // Start is called before the first frame update
     void Start()
     {
-
+        budget = FindObjectOfType<Budget>();
     }
 
     // Update is called once per frame
@@ -26,16 +32,37 @@ public class BuildingPlacement : MonoBehaviour
                 int x = tileHit.tile.X;
                 int y = tileHit.tile.Y;
 
-                if (currentBuilding != null) 
+                if (currentBuilding != null)
                 {
                     currentBuilding.position = new Vector3(x, currentBuilding.position.y, y);
                     //ZEBY NIE BUDOWAC NA WODZIE POTRZEBNA ZMIANA W MAPMODULE
                     //ZEBY BUDOWAC WIEKSZE OBIEKTY POTRZEBNA ZMIANA W MAPMODULE
-                    currentBuilding.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1.0f, 0.2f, 0.5f);
+                    if (currentBuilding.gameObject.tag == "budynek01")
+                        buffer = budAmount;
+                    if (currentBuilding.gameObject.tag == "budynek02")
+                        buffer = nisbudAmount;
+                    if (budget.gameObject.GetComponent<Budget>().checkBudget(currentBuilding.gameObject) && budget.gameObject.GetComponent<Budget>().checkLimits(currentBuilding.gameObject, buffer))
+                    {
+                        currentBuilding.GetComponent<MeshRenderer>().material.color = new Color(0.2f, 1.0f, 0.2f, 0.5f);
+                    }
+                    else
+                    {
+                        currentBuilding.GetComponent<MeshRenderer>().material.color = new Color(1.0f, 0.2f, 0.2f, 0.5f);
+                    }
+
                     //Stawianie budynku
-                    if (Input.GetMouseButtonDown(0))
+                    if (Input.GetMouseButtonDown(0) && budget.gameObject.GetComponent<Budget>().checkBudget(currentBuilding.gameObject) && budget.gameObject.GetComponent<Budget>().checkLimits(currentBuilding.gameObject, buffer))
                     {
                         currentBuilding.GetComponent<MeshRenderer>().material.color = new Color(0.3f, 0.3f, 0.8f, 1.0f);
+                        budget.gameObject.GetComponent<Budget>().build(currentBuilding.gameObject);
+                        if (currentBuilding.gameObject.tag == "budynek01")
+                        {
+                            budAmount++;
+                        }
+                        if (currentBuilding.gameObject.tag == "budynek02")
+                        {
+                            nisbudAmount++;
+                        }
                         currentBuilding = null;
                     }
                 }
@@ -48,6 +75,15 @@ public class BuildingPlacement : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(1))
                 {
+                    budget.gameObject.GetComponent<Budget>().destroy(BuildingHit.gameObject);
+                    if (BuildingHit.gameObject.tag == "budynek01")
+                    {
+                        budAmount--;
+                    }
+                    if (BuildingHit.gameObject.tag == "budynek02")
+                    {
+                        nisbudAmount--;
+                    }
                     Destroy(BuildingHit.gameObject);
                 }
             }

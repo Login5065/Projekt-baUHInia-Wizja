@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 public class MainMenu : MonoBehaviour
 {
-    static bool isAdmin = false;
-    static string accessToken;
-    static string refreshToken;
+    public static bool isAdmin;
+    public static string accessToken;
+    public static string refreshToken;
     public GameObject Login1IF;
     public GameObject Login2IF;
     public GameObject Registration1IF;
@@ -29,21 +29,23 @@ public class MainMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Toggle.SetActive(isAdmin);
+        Toggle.GetComponent<Toggle>().isOn = false;
+        Toggle.SetActive(false);
         zalogowany = false;
+        isAdmin = false;
         ButtonsForLogged();
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
-    public void StartGame()
-    {
-        //SceneManager.LoadScene();
-    }
+    public void StartGame() //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        //SceneManager.LoadScene(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void Login()
     {
         StartCoroutine(LoginCoroutine());
@@ -62,14 +64,7 @@ public class MainMenu : MonoBehaviour
         requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_LOGIN);
 
 
-        /*while (!RequestMan.CheckRequest(requestID))
-        {
-            Debug.Log(";(");
-            yield return new WaitForSeconds(0.5f);
-        }*/
 
-
-        //Response response = RequestMan.GetRequest(requestID);
 
         Response response = null;
         while (response == null)
@@ -99,10 +94,12 @@ public class MainMenu : MonoBehaviour
             refreshToken = rep.refToken;
             Authorize();
             zalogowany = true;
-            ButtonsForLogged();
             ErrorText.GetComponent<Text>().text = "Zalogowano!";
         }
-        TurnOnButtons();
+        else
+        {
+            TurnOnButtons();
+        }
     }
 
     public void Registration()
@@ -149,13 +146,7 @@ public class MainMenu : MonoBehaviour
             requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_REGISTER);
 
 
-            /*while (!RequestMan.CheckRequest(requestID))
-            {
-                Debug.Log(";(");
-                yield return new WaitForSeconds(0.5f);
-            }
 
-            Response response = RequestMan.GetRequest(requestID);*/
 
             Response response = null;
             while (response == null)
@@ -168,7 +159,7 @@ public class MainMenu : MonoBehaviour
 
             if (response.status == Response.ResponseType.RES_ERROR_USER_NOT_FOUND)
             {
-                ErrorText.GetComponent<Text>().text = "RES_ERROR_USER_NOT_FOUND???";
+                ErrorText.GetComponent<Text>().text = "RES_ERROR_USER_NOT_FOUND";
             }
             if (response.status == Response.ResponseType.RES_ERROR_PASSWORD_INVALID)
             {
@@ -201,13 +192,7 @@ public class MainMenu : MonoBehaviour
 
         requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_ACCESS_USER);
 
-        /*while (!RequestMan.CheckRequest(requestID))
-        {
-            Debug.Log(";(");
-            yield return new WaitForSeconds(0.5f);
-        }
 
-        Response response = RequestMan.GetRequest(requestID);*/
 
         Response response = null;
         while (response == null)
@@ -260,13 +245,7 @@ public class MainMenu : MonoBehaviour
 
         requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_REFRESH_USER);
 
-        /*while (!RequestMan.CheckRequest(requestID))
-        {
-            Debug.Log(";(");
-            yield return new WaitForSeconds(0.5f);
-        }
 
-        Response response = RequestMan.GetRequest(requestID);*/
 
         Response response = null;
         while (response == null)
@@ -294,19 +273,13 @@ public class MainMenu : MonoBehaviour
     IEnumerator LogoutCoroutine()
     {
         TurnOffButtons();
+        Toggle.GetComponent<Toggle>().isOn = false;
         int requestID;
         LogoutRequest logoutRequest = new LogoutRequest();
         logoutRequest.refToken = refreshToken;
         string json = JsonUtility.ToJson(logoutRequest);
         requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_LOGOUT);
 
-        /*while (!RequestMan.CheckRequest(requestID))
-        {
-            Debug.Log(";(");
-            yield return new WaitForSeconds(0.5f);
-        }
-
-        Response response = RequestMan.GetRequest(requestID);*/
 
         Response response = null;
         while (response == null)
@@ -423,12 +396,12 @@ public class MainMenu : MonoBehaviour
         ZalogujSieBtn.GetComponent<Button>().interactable = false;
         ZarejestrujSieBtn.GetComponent<Button>().interactable = false;
         ExitBtn.GetComponent<Button>().interactable = false;
-        ButtonsForLogged();
+        StartBtn.GetComponent<Button>().interactable = false;
+        WylogujSieBtn.GetComponent<Button>().interactable = false;
     }
 
     void TurnOnButtons()
     {
-        ZalogujSieBtn.GetComponent<Button>().interactable = true;
         ZarejestrujSieBtn.GetComponent<Button>().interactable = true;
         ExitBtn.GetComponent<Button>().interactable = true;
         ButtonsForLogged();

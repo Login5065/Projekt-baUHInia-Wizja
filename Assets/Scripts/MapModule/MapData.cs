@@ -6,6 +6,7 @@ using UnityEngine;
 [System.Serializable]
 public class MapData
 {
+    public string mapName;
     public int budget;
     public int columnsNumber;
     public int rowsNumber;

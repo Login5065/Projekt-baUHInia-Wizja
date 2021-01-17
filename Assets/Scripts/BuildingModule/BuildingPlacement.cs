@@ -18,6 +18,9 @@ public class BuildingPlacement : MonoBehaviour
 
     private int budAmount = 0;
     private int nisbudAmount = 0;
+    private int benchAmount = 0;
+    private int treeAmount = 0;
+    private int fountainAmount = 0;
     private int buffer;
 
     // Start is called before the first frame update
@@ -54,6 +57,12 @@ public class BuildingPlacement : MonoBehaviour
                             buffer = budAmount;
                         if (currentBuilding.gameObject.tag == "budynek02")
                             buffer = nisbudAmount;
+                        if (currentBuilding.gameObject.tag == "budynek03")
+                            buffer = benchAmount;
+                        if (currentBuilding.gameObject.tag == "budynek04")
+                            buffer = treeAmount;
+                        if (currentBuilding.gameObject.tag == "budynek05")
+                            buffer = fountainAmount;
                         if (budget.gameObject.GetComponent<Budget>().checkBudget(currentBuilding.gameObject) && 
                             budget.gameObject.GetComponent<Budget>().checkLimits(currentBuilding.gameObject, buffer)
                             && CanBuild(width, length, x, y))
@@ -80,13 +89,15 @@ public class BuildingPlacement : MonoBehaviour
                             greenBuilding.SetActive(false);
                             budget.gameObject.GetComponent<Budget>().build(currentBuilding.gameObject);
                             if (currentBuilding.gameObject.tag == "budynek01")
-                            {
                                 budAmount++;
-                            }
                             if (currentBuilding.gameObject.tag == "budynek02")
-                            {
                                 nisbudAmount++;
-                            }
+                            if (currentBuilding.gameObject.tag == "budynek03")
+                                benchAmount++;
+                            if (currentBuilding.gameObject.tag == "budynek04")
+                                treeAmount++;
+                            if (currentBuilding.gameObject.tag == "budynek05")
+                                fountainAmount++;
                             currentBuilding = null;
                             Destroy(redBuilding);
                             Destroy(greenBuilding);
@@ -106,13 +117,15 @@ public class BuildingPlacement : MonoBehaviour
                 {
                     budget.gameObject.GetComponent<Budget>().destroy(BuildingHit.gameObject);
                     if (BuildingHit.gameObject.tag == "budynek01")
-                    {
-                           budAmount--;
-                    }
+                        budAmount--;
                     if (BuildingHit.gameObject.tag == "budynek02")
-                    {
                         nisbudAmount--;
-                    }
+                    if (BuildingHit.gameObject.tag == "budynek03")
+                        benchAmount--;
+                    if (BuildingHit.gameObject.tag == "budynek04")
+                        treeAmount--;
+                    if (BuildingHit.gameObject.tag == "budynek05")
+                        fountainAmount--;
                     //uwaga na zamiane y -> z
                     int demolishX = (int)BuildingHit.GetComponent<Transform>().position.x + BuildingHit.GetComponent<BuildingPosition>().x;
                     int demolishY = (int)BuildingHit.GetComponent<Transform>().position.z + BuildingHit.GetComponent<BuildingPosition>().z;

@@ -32,7 +32,7 @@ public class Request {
     private float initTime;
     private float lastTime;
 
-    static private int nextId = 0;
+    private static int nextId = 0;
 
     public Request(string jsonString, RequestType rType) {
         lastTime = initTime = Time.realtimeSinceStartup;
@@ -59,7 +59,27 @@ public class Request {
             case RequestType.REQ_REFRESH_USER:
                 RequestRefreshToken();
                 break;
+            case RequestType.REQ_MAP_UPLOAD_USER:
+                RequestMapUploadUser();
+                break;
+            case RequestType.REQ_MAP_DOWNLOAD_USER_NEW:
+                RequestMapDownloadUser();
+                break;
+            case RequestType.REQ_MAP_DOWNLOAD_USER_EDIT:
+                break;
+            case RequestType.REQ_MAP_DOWNLOAD_USER_CHECK:
+                break;
+            case RequestType.REQ_MAP_UPLOAD_ADMIN:
+                break;
+            case RequestType.REQ_MAP_CHECK:
+                break;
+            case RequestType.REQ_MAP_GETLIST:
+                RequestMapGetList();
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
+
         id = GetNextId();
     }
 
@@ -94,8 +114,9 @@ public class Request {
                 if (replyReader == null) {
                     Debug.Log(Messages.preRQ + "Response encountered general error.");
                     response.status = Response.ResponseType.RES_ERROR_GENERAL;
-                } else if (!replyReader.status) {
-                    Debug.Log(Messages.preRQ + "Response encountered specific error.");
+                }
+                else if (!replyReader.status) {
+                    Debug.Log(Messages.preRQ + "Response encountered specific error. -> " + replyReader.msg);
                     switch (replyReader.msg) {
                         case "RES_ERROR_SAVE_FAILED":
                             response.status = Response.ResponseType.RES_ERROR_SAVE_FAILED;
@@ -122,22 +143,25 @@ public class Request {
                             response.status = Response.ResponseType.RES_ERROR_BAD_TOKEN;
                             break;
                     }
-                } else {
+                }
+                else {
                     Debug.Log(Messages.preRQ + "Successful response.");
                     response.status = Response.ResponseType.RES_SUCCESS;
                 }
-            } catch (System.ArgumentException) {
+            }
+            catch (System.ArgumentException) {
                 Debug.Log(Messages.preRQ + "Not a JSON response.");
                 response.status = Response.ResponseType.RES_SUCCESS;
             }
 
             return response;
-        } else {
+        }
+        else {
             return null;
         }
     }
 
-    static private int GetNextId() {
+    private static int GetNextId() {
         return nextId++;
     }
 
@@ -184,6 +208,21 @@ public class Request {
 
     private void RequestRefreshToken() {
         CreatePostRequest(Config.ServerApiRefresh, jsonRequest);
+        unityRes = unityReq.SendWebRequest();
+    }
+
+    private void RequestMapUploadUser() {
+        CreatePostRequest(Config.ServerApiMapSave, jsonRequest);
+        unityRes = unityReq.SendWebRequest();
+    }
+
+    private void RequestMapGetList() {
+        CreatePostRequest(Config.ServerApiMapList, jsonRequest);
+        unityRes = unityReq.SendWebRequest();
+    }
+
+    private void RequestMapDownloadUser() {
+        CreatePostRequest(Config.ServerApiMapLoad, jsonRequest);
         unityRes = unityReq.SendWebRequest();
     }
 }

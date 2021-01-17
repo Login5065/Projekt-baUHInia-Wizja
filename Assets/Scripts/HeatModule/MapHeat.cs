@@ -24,7 +24,7 @@ public class MapHeat
     {
         foreach (var tile in tiles) {
             float addTemperature = 0.0f;
-            //addTemperature = ComputeTemperature(allBuildings, tile.X, tile.Y);
+            //addTemperature = ComputeTemperature(buildings.BuildingList, tile.X, tile.Y);
             //addTemperature = TerrainHeat(tile.TerrainType, temperature);
             tile.tileHeat.localTemperature = globalTemperature + addTemperature;
         }
@@ -45,7 +45,7 @@ public class MapHeat
 
     // Do not use nor uncomment
     /*
-    private float ComputeTemperature(List<Building> buildings, int X, int Y) 
+    private float ComputeTemperature(List<GameObject> buildings, int X, int Y) 
     {
         foreach (var building in buildings) {
             float buildingHeat = building.BuildingInfo.heat;

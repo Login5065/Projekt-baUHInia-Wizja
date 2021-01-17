@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapHeat : MonoBehaviour
+public class MapHeat
 {
     public static float globalTemperature { get; set; }
-    private float heatModifier { get; set; }
+    private float heatDecayRadius { get; set; }
     
     // Start is called before the first frame update
     void Start()
     {
         globalTemperature = 20.0f;
-        heatModifier = 0.1f;
+        heatDecayRadius = 1.0f;
     }
 
     // Update is called once per frame
@@ -20,11 +20,13 @@ public class MapHeat : MonoBehaviour
         
     }
 
-    public float CalculateTemperature(Tile[] tiles)
+    public float CalculateTemperature(Tile[] tiles, Buildings buildings)
     {
-        //List<Building> allBuildings;
         foreach (var tile in tiles) {
-            //tile.tileHeat.localTemperature = ComputeTemperature(allBuildings, tile.X, tile.Y);
+            float addTemperature = 0.0f;
+            //addTemperature = ComputeTemperature(allBuildings, tile.X, tile.Y);
+            //addTemperature = TerrainHeat(tile.TerrainType, temperature);
+            tile.tileHeat.localTemperature = globalTemperature + addTemperature;
         }
         return 0.0f;
     }
@@ -32,12 +34,12 @@ public class MapHeat : MonoBehaviour
     public float ReturnHeatScore(Tile[] tiles)
     {
         float score = 0;
-        int index = 1;
+        int index = 0;
         foreach (var tile in tiles) {
-            //score += tile.tileHeat.localTemperature;
+            score += tile.tileHeat.localTemperature;
             index++;
         }
-        score /= (float) index;
+        score /= (float) (index > 0 ? index : 1);
         return score;
     }
 
@@ -45,15 +47,44 @@ public class MapHeat : MonoBehaviour
     /*
     private float ComputeTemperature(List<Building> buildings, int X, int Y) 
     {
-        float temperature = globalTemperature;
         foreach (var building in buildings) {
-            float buildingHeat = building.heat;
+            float buildingHeat = building.BuildingInfo.heat;
             int X = abs(building.tile.X - X);
             int Y = abs(building.tile.Y - Y);
-            float diff = sqrt(X*X+Y*Y);
-            temperature += heatModifier * pow(exp, -diff);
+            float diff = sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius
+            float heatBase = buildingHeat / (Math.PI * heatModSquared);
+            temperature += heatBase * pow(exp, (-diff / heatModSquared));
         }
         return temperature;
+    }
+    */
+
+    /*
+    private float TerrainHeat(TERRAIN_TYPE type, float temperature)
+    {
+        switch(type)
+        {
+            case Tile.TERRAIN_TYPE.WATER: 
+            {
+                return temperature * 0.6; 
+                break;
+            }
+            case Tile.TERRAIN_TYPE.GRASS: 
+            {
+                return temperature * 0.7;
+                break;
+            }
+            case Tile.TERRAIN_TYPE.EARTH: 
+            {
+                return temperature * 0.95;
+                break;
+            }   
+            default:
+            {
+                return temperature;
+                break;
+            }         
+        }
     }
     */
 

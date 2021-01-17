@@ -16,6 +16,7 @@ public class GameData
     public AllNeededData allNeededData;
 }
 
+[System.Serializable]
 public struct AllNeededData
 {
     public AllNeededData(MapData _mapData)

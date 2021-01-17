@@ -1,5 +1,6 @@
 ﻿[System.Serializable]
-public class MapSaveResponse {
+public class MapLoadResponse {
     public bool status;
     public string msg;
+    public GameData mapGameData;
 }

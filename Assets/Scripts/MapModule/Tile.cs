@@ -12,16 +12,18 @@ public class Tile
         this.Y = y;
         TerrainType = TERRAIN_TYPE.GRASS;
         canPlaceObjects = true;
-        temperature = 20f;
+        objectPlaced = false;
+        tileHeat = new TileHeat();
         //objects = new List<BUILDING_TYPE>();
     }
     public int X; // Column
     public int Y;   // Row
     public enum TERRAIN_TYPE { GRASS, BARREN, WATER, EARTH }
     public TERRAIN_TYPE TerrainType;
-    public float temperature;
+    public TileHeat tileHeat;
 
     public bool canPlaceObjects;
+    public bool objectPlaced;
     //list of builidingObjects on tile
     // public List<BUILDING_TYPE> objects;
 

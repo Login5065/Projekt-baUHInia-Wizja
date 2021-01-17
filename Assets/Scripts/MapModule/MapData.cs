@@ -7,8 +7,9 @@ using UnityEngine;
 public class MapData
 {
     public string mapName;
-    public double budget;
+    public int budget;
     public int columnsNumber;
     public int rowsNumber;
     public Tile[] tiles;
+    //public MapHeat mapHeat;
 }

@@ -4015,6 +4015,7 @@ GameObject:
   - component: {fileID: 4113269666325025620}
   - component: {fileID: 4026276272542804630}
   - component: {fileID: 278843376824053326}
+  - component: {fileID: 8514733563104736117}
   m_Layer: 0
   m_Name: SaveMapServer
   m_TagString: Untagged
@@ -4133,6 +4134,20 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!114 &8514733563104736117
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4179273146507752418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  header: 
+  content: Send current map to server
 --- !u!1 &4250537586134737757
 GameObject:
   m_ObjectHideFlags: 0

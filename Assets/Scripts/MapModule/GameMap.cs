@@ -7,16 +7,22 @@ public class GameMap : MonoBehaviour
     public static GameMap Instance;
     public GameObject tilePrefab;
     public GameObject tileHolder;
+    public GameData gameData;
     public MapData mapData;
     public string mapName;
     public int columns = 20;
     public int rows = 20;
     public List<TileComponent> tiles;
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     public static Tile GetTileAt(int x, int y)
     {
         if (Instance.mapData.tiles == null)
         {
-            Debug.LogError("Hexes array not yet instantiated.");
+            Debug.LogError("Tiles array not yet instantiated.");
             return null;
         }
         //need to do it in try catch, becouse some hexes may not have all neighours (map edges)
@@ -41,7 +47,7 @@ public class GameMap : MonoBehaviour
             mapData.tiles = new Tile[columns * rows];
             mapData.columnsNumber = columns;
             mapData.rowsNumber = rows;
-            mapData.mapName = mapName;
+            gameData.mapName = mapName;
             //create needed hexes
             for (int column = 0; column < columns; column++)
             {
@@ -55,9 +61,10 @@ public class GameMap : MonoBehaviour
         else
         {
             //map was loaded with existing mapData and hexes
+            mapData = gameData.allNeededData.mapData;
             rows = mapData.rowsNumber;
             columns = mapData.columnsNumber;
-            mapName = mapData.mapName;
+            mapName = gameData.mapName;
         }
 
         for (int column = 0; column < columns; column++)
@@ -92,11 +99,15 @@ public class GameMap : MonoBehaviour
     //mapData should contain hex information already
     public void LoadMap(string name)
     {
-        mapData = MapManager.LoadLocalMap(name);
-        if (mapData == null)
+        gameData = MapManager.LoadLocal(name);
+        if (gameData == null)
         {
             Debug.LogWarning("Map not loaded!");
             return;
+        }
+        else
+        {
+            mapData = gameData.allNeededData.mapData;
         }
         BuildMap();
     }

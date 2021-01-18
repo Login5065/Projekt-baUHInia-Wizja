@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class MapEditor : MonoBehaviour
 {
     public static MapEditor Instance;
+    public GameObject adminOptions;
+    public GameObject userOptions;
     public GameMap map;
     public InputField mapNameInput;
     public InputField rowsNumberInput;
@@ -14,6 +16,8 @@ public class MapEditor : MonoBehaviour
 
     public Tile.TERRAIN_TYPE selectedTerrainType;
     private TileComponent tileHit;
+
+    GameData gameData;
 
     public bool isEditingTerrain = false;
 
@@ -25,6 +29,28 @@ public class MapEditor : MonoBehaviour
         rowsNumberInput.characterValidation = InputField.CharacterValidation.Integer;
         columnNumberInput.contentType = InputField.ContentType.IntegerNumber;
         columnNumberInput.characterValidation = InputField.CharacterValidation.Integer;
+
+    }
+
+    private void Start()
+    {
+        if (!UserInfo.Instance.isAdmin)
+        {
+            adminOptions.SetActive(false);
+            userOptions.SetActive(true);
+        }
+        else
+        {
+            adminOptions.SetActive(true);
+            userOptions.SetActive(false);
+        }
+
+        if (MapManager.Instance.currentGameData != null)
+        {
+            Debug.Log("Found game data on load, loading map!");
+            gameData = MapManager.Instance.currentGameData;
+            map.LoadMap(gameData.mapName);
+        }
 
     }
 
@@ -64,23 +90,46 @@ public class MapEditor : MonoBehaviour
         }
     }
 
+    public void UpdateGameData()
+    {
+        map.gameData.AddMapData(map.mapData);
+        map.gameData.allNeededData.mapData.mapName = mapNameInput.text;
+        map.gameData.mapName = mapNameInput.text;
+        map.gameData.author = UserInfo.Instance.login;
+
+
+
+    }
+
     public void LoadMap()
     {
         map.LoadMap(mapNameInput.text);
+        gameData = map.gameData;
     }
 
     public void SaveMap()
     {
-        map.mapData.mapName = mapNameInput.text;
-        map.mapName = mapNameInput.text;
-        MapManager.SaveLocalMap(map.mapData);
+        UpdateGameData();
+        //map.mapName = mapNameInput.text;
+        if (map.gameData == null)
+            Debug.Log("map gamedata is null");
+        MapManager.SaveLocal(map.gameData);
+    }
+
+    public void SaveMapServer()
+    {
+        UpdateGameData();
+        //map.mapName = mapNameInput.text;
+        MapManager.Instance.SaveServerMap(map.gameData);
     }
 
     public void CreateNewMap()
     {
+        gameData = MapManager.GenerateNewGameData();
+        map.gameData = gameData;
         map.rows = int.Parse(rowsNumberInput.text);
         map.columns = int.Parse(columnNumberInput.text);
-        map.mapName = mapNameInput.text;
+        //map.mapName = mapNameInput.text;
         map.CreateNewMap();
     }
 

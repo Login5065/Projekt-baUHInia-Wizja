@@ -24,8 +24,6 @@ public class MainMenu : MonoBehaviour
     public Button StartBtn;
     private bool zalogowany;
 
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -39,12 +37,17 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void StartGame() //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //SceneManager.LoadScene(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (zalogowany)
+        {
+            UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken);
+            SceneManager.LoadScene(1);
+        }
     } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void Login()
     {
@@ -310,7 +313,7 @@ public class MainMenu : MonoBehaviour
         bool good = true;
         if (Registration2IF.GetComponent<InputField>().text.Equals(Registration3IF.GetComponent<InputField>().text))
         {
-            good=CheckRegistrationPasswordStrength();
+            good = CheckRegistrationPasswordStrength();
         }
         else
         {
@@ -365,30 +368,30 @@ public class MainMenu : MonoBehaviour
 
     void OtherError(Response response)
     {
-        if(response.status == Response.ResponseType.RES_ERROR_GENERAL)
+        if (response.status == Response.ResponseType.RES_ERROR_GENERAL)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_GENERAL";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_HTTP)
+        if (response.status == Response.ResponseType.RES_ERROR_HTTP)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_HTTP";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_NETWORK)
+        if (response.status == Response.ResponseType.RES_ERROR_NETWORK)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_NETWORK";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_BAD_TOKEN)
+        if (response.status == Response.ResponseType.RES_ERROR_BAD_TOKEN)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_BAD_TOKEN";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_INSUFFICIENT)
+        if (response.status == Response.ResponseType.RES_ERROR_INSUFFICIENT)
         {
             ErrorText.GetComponent<Text>().text = "Nie podano wszystkich danych!";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_NO_TOKEN)
+        if (response.status == Response.ResponseType.RES_ERROR_NO_TOKEN)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_NO_TOKEN";
-        }  
+        }
     }
 
     void TurnOffButtons()

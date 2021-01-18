@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93edb99e4d960794d9c7d43e3d4ae049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 1
-  limits: 1
+  price: 4
+  limits: 4
   heat: 0
 --- !u!65 &9171076852788709
 BoxCollider:
@@ -76,8 +76,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 7.0340915, y: 8.91917, z: 4.0240545}
+  m_Center: {x: 2.1949472, y: 4.059806, z: -1.3744761}
 --- !u!1001 &5903934513641406176
 PrefabInstance:
   m_ObjectHideFlags: 0

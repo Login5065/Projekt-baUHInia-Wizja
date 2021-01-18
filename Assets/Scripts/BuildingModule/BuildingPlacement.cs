@@ -5,10 +5,9 @@ using UnityEngine;
 public class BuildingPlacement : MonoBehaviour
 {
     private PlaceableBuildings placeableBuildings;
-    private GameObject currentBuilding;
-    private GameObject redBuilding;
-    private GameObject greenBuilding;
-    private GameObject TempBuilding;
+    public GameObject currentBuilding;
+    public GameObject redBuilding;
+    public GameObject greenBuilding;
     private GameObject obiekt;
 
     private TileComponent tileHit;
@@ -22,6 +21,7 @@ public class BuildingPlacement : MonoBehaviour
     private int treeAmount = 0;
     private int fountainAmount = 0;
     private int buffer;
+    private int krok = 1;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +34,7 @@ public class BuildingPlacement : MonoBehaviour
     {
         if (currentBuilding != null)
         {
+            Rotation();
             redBuilding.SetActive(false);
             greenBuilding.SetActive(false);
             currentBuilding.SetActive(false);
@@ -103,10 +104,21 @@ public class BuildingPlacement : MonoBehaviour
                             Destroy(greenBuilding);
                             redBuilding = null;
                             greenBuilding = null;
+                            krok = 1;
                         }
                     }
 
                 }
+            }
+            if(Input.GetMouseButtonDown(0) && currentBuilding != null)
+            {
+                Destroy(currentBuilding);
+                Destroy(redBuilding);
+                Destroy(greenBuilding);
+                currentBuilding = null;
+                redBuilding = null;
+                greenBuilding = null;
+                krok = 1;
             }
         }
         if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit rayHitBuilding, Mathf.Infinity, LayerMask.GetMask("Buildings")))
@@ -115,6 +127,13 @@ public class BuildingPlacement : MonoBehaviour
             {
                 if (Input.GetMouseButtonDown(1))
                 {
+                    
+                    //uwaga na zamiane y -> z
+                    int demolishX = (int)BuildingHit.GetComponent<Transform>().position.x + BuildingHit.GetComponent<BuildingPosition>().x;
+                    int demolishY = (int)BuildingHit.GetComponent<Transform>().position.z + BuildingHit.GetComponent<BuildingPosition>().z;
+                    int demolishWidth = BuildingHit.GetComponent<BuildingPosition>().width;
+                    int demolishLength = BuildingHit.GetComponent<BuildingPosition>().length;
+                    Demolish(demolishWidth, demolishLength, demolishX, demolishY);
                     budget.gameObject.GetComponent<Budget>().destroy(BuildingHit.gameObject);
                     if (BuildingHit.gameObject.tag == "budynek01")
                         budAmount--;
@@ -126,28 +145,23 @@ public class BuildingPlacement : MonoBehaviour
                         treeAmount--;
                     if (BuildingHit.gameObject.tag == "budynek05")
                         fountainAmount--;
-                    //uwaga na zamiane y -> z
-                    int demolishX = (int)BuildingHit.GetComponent<Transform>().position.x + BuildingHit.GetComponent<BuildingPosition>().x;
-                    int demolishY = (int)BuildingHit.GetComponent<Transform>().position.z + BuildingHit.GetComponent<BuildingPosition>().z;
-                    int demolishWidth = BuildingHit.GetComponent<BuildingPosition>().width;
-                    int demolishLength = BuildingHit.GetComponent<BuildingPosition>().length;
-                    Demolish(demolishWidth, demolishLength, demolishX, demolishY);
-                    Destroy(BuildingHit.gameObject);             
-                    currentBuilding = null;
+                    Destroy(BuildingHit.gameObject);                                                
                 }
             }
         }
-    }
-
-    //ZOSATNIE ZASTAPIONA PO ZMIANACH W MODULE MAP
-    bool IsLegalPosition()
-    {
-        if (placeableBuildings.colliders.Count >0)
+        if(Input.GetMouseButtonDown(1))
         {
-            return false;
+            if (currentBuilding != null)
+            {
+                Destroy(currentBuilding);
+                Destroy(redBuilding);
+                Destroy(greenBuilding);
+                currentBuilding = null;
+                redBuilding = null;
+                greenBuilding = null;
+                krok = 1;
+            }
         }
-
-        return true;
     }
 
     //ABY DODAC OBIEKT NALEZY GO UMIESCIC W BUTTON-ie W GUI
@@ -209,6 +223,140 @@ public class BuildingPlacement : MonoBehaviour
                 obiekt = GameObject.Find("TILE: " + tempX + "," + tempY);
                 obiekt.GetComponent<TileComponent>().tile.objectPlaced = false;
             }
+        }
+    }
+    void Rotation()
+    {
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            BuildingRotationStep(krok);
+            krok++;
+            if (krok == 5) krok = 1;
+        }
+    }
+    void BuildingRotationStep(int i)
+    {
+        int temp = currentBuilding.GetComponent<BuildingPosition>().width;
+        currentBuilding.GetComponent<BuildingPosition>().width = currentBuilding.GetComponent<BuildingPosition>().length;
+        currentBuilding.GetComponent<BuildingPosition>().length = temp;
+        switch (i)
+        {
+            case 1:
+            {
+                currentBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                redBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                greenBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                    if (currentBuilding.gameObject.tag == "budynek01")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = -7;
+                        currentBuilding.GetComponent<BuildingPosition>().x = 0;                      
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek02")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = -3;
+                        currentBuilding.GetComponent<BuildingPosition>().x = -2;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek03")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek04")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek05")
+                    {
+
+                    }
+            }
+            break;
+        case 2:
+            {
+                currentBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                redBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                greenBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                    if (currentBuilding.gameObject.tag == "budynek01")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = -11;
+                        currentBuilding.GetComponent<BuildingPosition>().x = -7;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek02")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = -4;
+                        currentBuilding.GetComponent<BuildingPosition>().x = -3;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek03")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek04")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek05")
+                    {
+
+                    }
+                }
+            break;
+        case 3:
+            {
+                currentBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                redBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                greenBuilding.GetComponent<Transform>().Rotate(new Vector3(0, 90, 0));
+                    if (currentBuilding.gameObject.tag == "budynek01")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = 1;
+                        currentBuilding.GetComponent<BuildingPosition>().x = -11;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek02")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = 0;
+                        currentBuilding.GetComponent<BuildingPosition>().x = -4;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek03")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek04")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek05")
+                    {
+
+                    }
+                }
+            break;
+        case 4:
+            {
+                currentBuilding.GetComponent<Transform>().Rotate(new Vector3(0, -270, 0));
+                redBuilding.GetComponent<Transform>().Rotate(new Vector3(0, -270, 0));
+                greenBuilding.GetComponent<Transform>().Rotate(new Vector3(0, -270, 0));
+                    if (currentBuilding.gameObject.tag == "budynek01")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = 0;
+                        currentBuilding.GetComponent<BuildingPosition>().x = 1;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek02")
+                    {
+                        currentBuilding.GetComponent<BuildingPosition>().z = -2;
+                        currentBuilding.GetComponent<BuildingPosition>().x = 0;
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek03")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek04")
+                    {
+
+                    }
+                    if (currentBuilding.gameObject.tag == "budynek05")
+                    {
+
+                    }
+                }
+            break;      
         }
     }
 }

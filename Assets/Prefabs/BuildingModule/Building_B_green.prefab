@@ -47,8 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   x: 1
   z: 0
-  width: 8
-  length: 15
+  width: 7
+  length: 12
 --- !u!114 &2147219857472087700
 MonoBehaviour:
   m_ObjectHideFlags: 0

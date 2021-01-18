@@ -20,12 +20,12 @@ public class MapHeat
         
     }
 
-    public float CalculateTemperature(Tile[] tiles, Buildings buildings)
+    public float CalculateTemperature(Tile[] tiles, List<GameObject> allObjects)
     {
+        List<GameObject> onlyBuildings = prepList(allObjects);
         foreach (var tile in tiles) {
             float addTemperature = 0.0f;
-            //addTemperature = ComputeTemperature(buildings.BuildingList, tile.X, tile.Y);
-            //addTemperature = TerrainHeat(tile.TerrainType, temperature);
+            addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
             tile.tileHeat.localTemperature = globalTemperature + addTemperature;
         }
         return 0.0f;
@@ -44,28 +44,32 @@ public class MapHeat
     }
 
     // Do not use nor uncomment
-    /*
-    private float ComputeTemperature(List<GameObject> buildings, int X, int Y) 
+    private double ComputeTemperature(List<GameObject> buildings, Tile.TERRAIN_TYPE type, int tileX, int tileY) 
     {
-        foreach (var building in buildings) {
-            float buildingHeat = building.BuildingInfo.heat;
-            int width = building.BuildingPosition.Width, int height = building.BuildingPosition.Height;
-            int xCenter = X + width / 2;
-            int yCenter = Y + width / 2;
-            int X = abs(xCenter - X);
-            int Y = abs(yCenter - Y);
-            X = (width > X ? 0 : x - width);
-            Y = (height > Y ? 0 : y - width);
-            float diff = sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius;
-            float heatBase = buildingHeat / (Math.PI * heatModSquared);
-            temperature += heatBase * pow(exp, (-diff / heatModSquared));
-        }
-        return temperature;
-    }
-    */
+        double addTemperature = 0.0f;
 
-    /*
-    private float TerrainHeat(TERRAIN_TYPE type, float temperature)
+        foreach (var building in buildings) {
+            double buildingHeat = building.GetComponent<BuildingInfo>().heat;
+            int width = building.GetComponent<BuildingPosition>().width, length = building.GetComponent<BuildingPosition>().length;
+            float xCenter = building.GetComponent<Transform>().position.x + building.GetComponent<BuildingPosition>().x + width / 2.0f;
+            float yCenter = building.GetComponent<Transform>().position.z + building.GetComponent<BuildingPosition>().z + length / 2.0f;
+            float X = System.Math.Abs(xCenter - tileX), Y = System.Math.Abs(yCenter - tileY);
+            X = (width / 2 > X ? 0 : X - width / 2);
+            Y = (length / 2 > Y ? 0 : Y - length / 2);
+            double diff = System.Math.Sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius;
+            double heatBase = buildingHeat / (System.Math.PI * heatModSquared);
+            addTemperature += heatBase * System.Math.Exp(-diff / heatModSquared);
+        }
+
+        if(tileX != 0 || tileY != 0)
+        {
+            addTemperature = TerrainHeat(type, addTemperature);
+        }
+
+        return addTemperature;
+    }
+
+    private double TerrainHeat(Tile.TERRAIN_TYPE type, float temperature)
     {
         switch(type)
         {
@@ -91,6 +95,18 @@ public class MapHeat
             }         
         }
     }
-    */
+
+    private List<GameObject> prepList(List<GameObject> prelist)
+    {
+        List<GameObject> buildingList = new List<GameObject>();
+        foreach (GameObject thing in prelist)
+        {
+            if(thing.layer == 9) 
+            {
+                buildingList.Add(thing);
+            }
+        }
+        return buildingList;
+    }
 
 }

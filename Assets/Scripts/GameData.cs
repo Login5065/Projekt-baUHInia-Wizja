@@ -14,6 +14,13 @@ public class GameData
 
 
     public AllNeededData allNeededData;
+
+
+    public void AddMapData(MapData _mapData)
+    {
+        allNeededData.mapData = _mapData;
+    }
+
 }
 
 [System.Serializable]

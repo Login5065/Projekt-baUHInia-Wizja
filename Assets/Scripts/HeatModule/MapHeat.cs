@@ -69,7 +69,7 @@ public class MapHeat
         return addTemperature;
     }
 
-    private double TerrainHeat(Tile.TERRAIN_TYPE type, float temperature)
+    private double TerrainHeat(Tile.TERRAIN_TYPE type, double temperature)
     {
         switch(type)
         {

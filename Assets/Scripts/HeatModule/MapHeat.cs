@@ -49,9 +49,14 @@ public class MapHeat
     {
         foreach (var building in buildings) {
             float buildingHeat = building.BuildingInfo.heat;
-            int X = abs(building.tile.X - X);
-            int Y = abs(building.tile.Y - Y);
-            float diff = sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius
+            int width = building.BuildingPosition.Width, int height = building.BuildingPosition.Height;
+            int xCenter = X + width / 2;
+            int yCenter = Y + width / 2;
+            int X = abs(xCenter - X);
+            int Y = abs(yCenter - Y);
+            X = (width > X ? 0 : x - width);
+            Y = (height > Y ? 0 : y - width);
+            float diff = sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius;
             float heatBase = buildingHeat / (Math.PI * heatModSquared);
             temperature += heatBase * pow(exp, (-diff / heatModSquared));
         }

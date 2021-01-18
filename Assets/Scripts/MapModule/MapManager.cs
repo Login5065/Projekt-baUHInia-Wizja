@@ -97,12 +97,14 @@ public class MapManager : MonoBehaviour
         //GetServerMapList();
         if (entries.Length > 0)
         {
+            Debug.Log("List of maps if bigger then 0!");
             string mapName = mapServerNameIF.GetComponent<InputField>().text;
             foreach (MapEntry entry in entries)
             {
                 if (entry.mapName == mapName)
                 {
                     mapEntryToLoad = entry;
+                    Debug.Log("FoundMap!");
                     mapFound = true;
                 }
 
@@ -131,7 +133,7 @@ public class MapManager : MonoBehaviour
         MapSaveRequest mapSaveRequest = new MapSaveRequest();
         mapSaveRequest.mapGameData = gameData;
         mapSaveRequest.accToken = UserInfo.accessToken;
-        mapSaveRequest.isSolution = UserInfo.Instance.isAdmin;
+        mapSaveRequest.isSolution = !UserInfo.Instance.isAdmin;
 
 
         string json = JsonUtility.ToJson(mapSaveRequest);
@@ -186,7 +188,7 @@ public class MapManager : MonoBehaviour
 
         int requestID;
         MapListRequest mapListRequest = new MapListRequest();
-        mapListRequest.isSolution = !UserInfo.Instance.isAdmin;
+        mapListRequest.isSolution = false;
 
         string json = JsonUtility.ToJson(mapListRequest);
         requestID = RequestMan.SendRequest(json, Request.RequestType.REQ_MAP_GETLIST); ;
@@ -233,7 +235,7 @@ public class MapManager : MonoBehaviour
 
         int requestID;
         MapLoadRequest mapLoadRequest = new MapLoadRequest();
-        mapLoadRequest.isSolution = !UserInfo.Instance.isAdmin;
+        mapLoadRequest.isSolution = false;
         mapLoadRequest.UUID = mapEntryToLoad.UUID;
 
         string json = JsonUtility.ToJson(mapLoadRequest);

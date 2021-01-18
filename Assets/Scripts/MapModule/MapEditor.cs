@@ -92,9 +92,9 @@ public class MapEditor : MonoBehaviour
 
     public void UpdateGameData()
     {
+        map.gameData.AddMapData(map.mapData);
         map.gameData.allNeededData.mapData.mapName = mapNameInput.text;
         map.gameData.mapName = mapNameInput.text;
-        map.gameData.AddMapData(map.mapData);
         map.gameData.author = UserInfo.Instance.login;
 
 
@@ -129,7 +129,7 @@ public class MapEditor : MonoBehaviour
         map.gameData = gameData;
         map.rows = int.Parse(rowsNumberInput.text);
         map.columns = int.Parse(columnNumberInput.text);
-        map.mapName = mapNameInput.text;
+        //map.mapName = mapNameInput.text;
         map.CreateNewMap();
     }
 

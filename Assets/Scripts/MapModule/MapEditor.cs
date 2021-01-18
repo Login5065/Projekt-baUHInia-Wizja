@@ -84,7 +84,14 @@ public class MapEditor : MonoBehaviour
             if ((tileHit = rayHit.collider.GetComponent<TileComponent>()) != null)
             {
                 tileHit.tile.TerrainType = selectedTerrainType;
-                tileHit.tile.canPlaceObjects = userCanEdit;
+                if (selectedTerrainType == Tile.TERRAIN_TYPE.WATER)
+                {
+                    tileHit.tile.canPlaceObjects = false;
+                }
+                else
+                {
+                    tileHit.tile.canPlaceObjects = userCanEdit;
+                }
                 tileHit.UpdateTerrain();
             }
         }

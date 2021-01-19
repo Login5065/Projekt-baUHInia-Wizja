@@ -301,6 +301,7 @@ public class MapManager : MonoBehaviour
         gameData.date = System.DateTime.Now.ToString();
         gameData.allNeededData = new AllNeededData();
         gameData.allNeededData.mapData = new MapData();
+        gameData.allNeededData.buildings = new Buildings();
 
         return gameData;
     }

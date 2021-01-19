@@ -83,7 +83,9 @@ public class BuildingManagment : MonoBehaviour
         buildings = JsonUtility.FromJson<Buildings>(json);
         Debug.Log("Amount of buildings inside " + buildings.BuildingObjectData.Count());
     }
-
+    public Buildings getBuildingData() {
+        return buildings;
+    }
 
 
 

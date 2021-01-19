@@ -4,6 +4,7 @@ public class MapSaveRequest {
         mapGameData = new GameData();
         mapGameData.allNeededData = new AllNeededData();
         mapGameData.allNeededData.mapData = new MapData();
+        mapGameData.allNeededData.buildings = new Buildings();
     }
     
     public GameData mapGameData;

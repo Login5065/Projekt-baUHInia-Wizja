@@ -4,15 +4,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class MapSelect : MonoBehaviour
 {
     public GameObject adminPanel;
     public GameObject mapLocalNameIF;
     public GameObject mapServerNameIF;
+    public GameObject mapSolutionNameIF;
     public GameObject errorText;
     public TMP_Dropdown objectDropdown;
     public TMP_Dropdown objectDropdownLocal;
+    public TMP_Dropdown objectDropdownSolution;
 
 
     public List<string> localMaps;
@@ -33,9 +36,11 @@ public class MapSelect : MonoBehaviour
         MapManager.Instance.adminPanel = adminPanel;
         MapManager.Instance.mapLocalNameIF = mapLocalNameIF;
         MapManager.Instance.mapServerNameIF = mapServerNameIF;
+        MapManager.Instance.mapSolutionNameIF = mapSolutionNameIF;
         MapManager.Instance.errorText = errorText;
         MapManager.Instance.objectDropdown = objectDropdown;
         MapManager.Instance.objectDropdownLocal = objectDropdownLocal;
+        MapManager.Instance.objectDropdownSolution = objectDropdownSolution;
 
         MapManager.Instance.mapEntryToLoad = null;
         MapManager.Instance.GetServerMapList();
@@ -51,9 +56,21 @@ public class MapSelect : MonoBehaviour
         MapManager.Instance.LoadServerMap();
     }
 
+    public void LoadServerSolutionBtn()
+    {
+        MapManager.Instance.LoadSolutionMap();
+    }
+
     public void CreateMapBtn()
     {
         MapManager.Instance.CreateNewMap();
+    }
+
+    public void BackToMenuBtn()
+    {
+        Destroy(MapManager.Instance.gameObject);
+        Destroy(UserInfo.Instance.gameObject);
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void ListLocalMaps()
@@ -92,6 +109,16 @@ public class MapSelect : MonoBehaviour
         {
             MapManager.Instance.mapEntryToLoad = MapManager.Instance.mapEntries[option];
             Debug.Log("Dropdown option number:" + option + "  that is " + MapManager.Instance.mapEntries[option].mapName);
+
+        }
+    }
+
+    public void SelectSolutionEntry(int option)
+    {
+        if (MapManager.Instance != null)
+        {
+            MapManager.Instance.mapEntryToLoadSolution = MapManager.Instance.mapEntriesSolutions[option];
+            Debug.Log("Dropdown option number:" + option + "  that is " + MapManager.Instance.mapEntriesSolutions[option].mapName);
 
         }
     }

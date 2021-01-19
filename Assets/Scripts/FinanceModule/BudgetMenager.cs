@@ -20,6 +20,7 @@ public class BudgetMenager : MonoBehaviour
     public InputField fountainLimitsInput;
     public InputField BudgetInput;
     public Text budgettext;
+    public Text budgetInputInfo;
     public Button confirmButton;
 
     public GameObject budynek;
@@ -85,6 +86,7 @@ public class BudgetMenager : MonoBehaviour
             fountainLimitsInput.gameObject.SetActive(false);
             BudgetInput.gameObject.SetActive(false);
             confirmButton.gameObject.SetActive(false);
+            budgetInputInfo.gameObject.SetActive(false);
         }
         if (MainMenu.isAdmin == true)
         {
@@ -100,6 +102,7 @@ public class BudgetMenager : MonoBehaviour
             fountainLimitsInput.gameObject.SetActive(true);
             BudgetInput.gameObject.SetActive(true);
             confirmButton.gameObject.SetActive(true);
+            budgetInputInfo.gameObject.SetActive(true);
         }
     }
 

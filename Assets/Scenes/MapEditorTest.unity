@@ -3137,6 +3137,7 @@ MonoBehaviour:
   fountainLimitsInput: {fileID: 1019389284}
   BudgetInput: {fileID: 355340930}
   budgettext: {fileID: 1525513877}
+  budgetInputInfo: {fileID: 285591971}
   confirmButton: {fileID: 1885573688}
   budynek: {fileID: 1199332134306268, guid: 71edf7768c58f1f4492b17ced72ee74e, type: 3}
   niskibudynek: {fileID: 1653091941771604, guid: 439d1f96bc3b9534588ea82e532f2075,

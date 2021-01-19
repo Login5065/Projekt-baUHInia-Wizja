@@ -2399,6 +2399,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0c432a0691079d4b80826627cac34b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  prefab1: {fileID: 1199332134306268, guid: 71edf7768c58f1f4492b17ced72ee74e, type: 3}
+  prefab2: {fileID: 1653091941771604, guid: 439d1f96bc3b9534588ea82e532f2075, type: 3}
+  prefab3: {fileID: 1307031912822190, guid: 97cf5b9aa73461e4b92a7dfa890102ef, type: 3}
+  prefab4: {fileID: 1276862051916332, guid: bdb992c309f2732489d265190be1d119, type: 3}
+  prefab5: {fileID: 178508, guid: 15f572b1b81f4f94db3249d863718874, type: 3}
+  prefabs:
+  - {fileID: 1199332134306268, guid: 71edf7768c58f1f4492b17ced72ee74e, type: 3}
+  - {fileID: 1653091941771604, guid: 439d1f96bc3b9534588ea82e532f2075, type: 3}
+  - {fileID: 1307031912822190, guid: 97cf5b9aa73461e4b92a7dfa890102ef, type: 3}
+  - {fileID: 1276862051916332, guid: bdb992c309f2732489d265190be1d119, type: 3}
+  - {fileID: 178508, guid: 15f572b1b81f4f94db3249d863718874, type: 3}
+  FinanceObject: {fileID: 1538156976}
 --- !u!1 &765759546
 GameObject:
   m_ObjectHideFlags: 0
@@ -3607,6 +3619,7 @@ MonoBehaviour:
     mapName: 
     author: 
     date: 
+    budget: 0
     UUID: 
     allNeededData:
       mapData:
@@ -3615,6 +3628,24 @@ MonoBehaviour:
         columnsNumber: 0
         rowsNumber: 0
         tiles: []
+      buildings:
+        BuildingObjectData: []
+        tab:
+        - price: 0
+          limits: 0
+          heat: 0
+        - price: 0
+          limits: 0
+          heat: 0
+        - price: 0
+          limits: 0
+          heat: 0
+        - price: 0
+          limits: 0
+          heat: 0
+        - price: 0
+          limits: 0
+          heat: 0
   mapData:
     mapName: 
     budget: 0
@@ -3650,6 +3681,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1998694881174238730, guid: 0eea0c9c81d50cc499365dc235b8c963,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 1.7800293
       objectReference: {fileID: 0}
     - target: {fileID: 2925686593952156786, guid: 0eea0c9c81d50cc499365dc235b8c963,
         type: 3}
@@ -5022,6 +5058,7 @@ GameObject:
   - component: {fileID: 1538156979}
   - component: {fileID: 1538156978}
   - component: {fileID: 1538156977}
+  - component: {fileID: 1538156981}
   m_Layer: 5
   m_Name: budynki
   m_TagString: Untagged
@@ -5120,6 +5157,31 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1538156981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1538156976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8b14c97fb82dfe499aea94bc07506dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  price: 0000000000000000000000000000000000000000
+  limits: 0000000000000000000000000000000000000000
+  heat:
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  budAmount: 0
+  nisbudAmount: 0
+  benchAmount: 0
+  treeAmount: 0
+  fountainAmount: 0
 --- !u!1 &1582735810
 GameObject:
   m_ObjectHideFlags: 0

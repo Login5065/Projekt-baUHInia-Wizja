@@ -12,11 +12,7 @@ public class Request {
         REQ_ACCESS_USER,
         REQ_REFRESH_USER,
         REQ_MAP_DOWNLOAD_USER_NEW,
-        REQ_MAP_DOWNLOAD_USER_EDIT,
-        REQ_MAP_DOWNLOAD_USER_CHECK,
         REQ_MAP_UPLOAD_USER,
-        REQ_MAP_UPLOAD_ADMIN,
-        REQ_MAP_CHECK,
         REQ_MAP_GETLIST
     }
 
@@ -64,14 +60,6 @@ public class Request {
                 break;
             case RequestType.REQ_MAP_DOWNLOAD_USER_NEW:
                 RequestMapDownloadUser();
-                break;
-            case RequestType.REQ_MAP_DOWNLOAD_USER_EDIT:
-                break;
-            case RequestType.REQ_MAP_DOWNLOAD_USER_CHECK:
-                break;
-            case RequestType.REQ_MAP_UPLOAD_ADMIN:
-                break;
-            case RequestType.REQ_MAP_CHECK:
                 break;
             case RequestType.REQ_MAP_GETLIST:
                 RequestMapGetList();

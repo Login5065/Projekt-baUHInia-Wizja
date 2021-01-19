@@ -11,7 +11,7 @@ public class MapHeat
     {
         heatData.globalTemperature = 20.0f;
         heatData.heatDecayRadius = 1.0f;
-        heatData.heatScore = 0.0f;
+        heatData.heatScore = 20.0f;
     }
 
     // Update is called once per frame
@@ -25,7 +25,8 @@ public class MapHeat
         List<GameObject> onlyBuildings = PrepareList(allObjects);
         heatData.heatScore = 0.0f;
         int count = 0;
-        foreach (var tile in tiles) {
+        foreach (var tile in tiles) 
+        {
             float addTemperature = 0.0f;
             addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
             tile.tileHeat.localTemperature = heatData.globalTemperature + addTemperature;
@@ -45,9 +46,9 @@ public class MapHeat
         heatData.heatScore /= count;
     }
 
-    public double ReturnHeatScore()
+    public int ReturnHeatScore()
     {
-        return heatData.heatScore;
+        return (int) (10000.0d / heatData.heatScore);
     }
 
     // Do not use nor uncomment

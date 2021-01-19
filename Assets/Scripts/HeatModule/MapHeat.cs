@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class MapHeat
 {
-    public static float globalTemperature { get; set; }
-    private float heatDecayRadius { get; set; }
-    private double heatScore;
+    public HeatData heatData;
     
     // Start is called before the first frame update
     void Start()
     {
-        globalTemperature = 20.0f;
-        heatDecayRadius = 1.0f;
-        heatScore = 0.0f;
+        heatData.globalTemperature = 20.0f;
+        heatData.heatDecayRadius = 1.0f;
+        heatData.heatScore = 0.0f;
     }
 
     // Update is called once per frame
@@ -25,12 +23,12 @@ public class MapHeat
     public void CalculateTemperature(Tile[] tiles, List<GameObject> allObjects)
     {
         List<GameObject> onlyBuildings = PrepareList(allObjects);
-        heatScore = 0.0f;
+        heatData.heatScore = 0.0f;
         int count = 0;
         foreach (var tile in tiles) {
             float addTemperature = 0.0f;
             addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
-            tile.tileHeat.localTemperature = globalTemperature + addTemperature;
+            tile.tileHeat.localTemperature = heatData.globalTemperature + addTemperature;
             CalculateScore(tile.tileHeat.localTemperature);
             count++;
         }
@@ -39,17 +37,17 @@ public class MapHeat
 
     private void CalculateScore(double temperature)
     {
-        heatScore += temperature;
+        heatData.heatScore += temperature;
     }
 
     private void CalculateScore(int count)
     {
-        heatScore /= count;
+        heatData.heatScore /= count;
     }
 
     public double ReturnHeatScore()
     {
-        return heatScore;
+        return heatData.heatScore;
     }
 
     // Do not use nor uncomment
@@ -72,7 +70,7 @@ public class MapHeat
             float X = System.Math.Abs(xCenter - tileX), Y = System.Math.Abs(yCenter - tileY);
             X = (width / 2 > X ? 0 : X - width / 2);
             Y = (length / 2 > Y ? 0 : Y - length / 2);
-            double diff = System.Math.Sqrt(X*X+Y*Y), heatModSquared = heatDecayRadius * heatDecayRadius;
+            double diff = System.Math.Sqrt(X*X+Y*Y), heatModSquared = heatData.heatDecayRadius * heatData.heatDecayRadius;
             double heatBase = buildingHeat / (System.Math.PI * heatModSquared);
             addTemperature += heatBase * System.Math.Exp(-diff / heatModSquared);
         }

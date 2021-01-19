@@ -170,7 +170,7 @@ public class BuildingPrefabData
         FinanceUpdate();
         BuildingListCount();
         BuildingInstantiate();
-        
+        FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
 
     }
     private void BuildingListCount()

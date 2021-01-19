@@ -172,6 +172,12 @@ public class BuildingPrefabData
         BuildingInstantiate();
         FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
 
+        prefab1.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
+        prefab2.GetComponent<Transform>().localRotation = new Quaternion(0, -90, 0, 1);
+        prefab3.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
+        prefab4.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
+        prefab5.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
+
     }
     private void BuildingListCount()
     {
@@ -213,8 +219,7 @@ public class BuildingPrefabData
                 dodajDane(i, prefab5);
                 Instantiate(prefab5);
                 FinanceObject.GetComponent<PrefabInfo>().fountainAmount++;
-            }
-            
+            }            
         }
     }
 

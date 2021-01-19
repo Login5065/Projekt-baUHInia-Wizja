@@ -8,7 +8,7 @@ public class GameData
     public string mapName;
     public string author;
     public string date;
-    //public double budget;
+    public int budget;
 
     public string UUID;
 
@@ -19,6 +19,11 @@ public class GameData
     public void AddMapData(MapData _mapData)
     {
         allNeededData.mapData = _mapData;
+    }
+
+    public int getBudget()
+    {
+        return allNeededData.mapData.budget;
     }
 
 }

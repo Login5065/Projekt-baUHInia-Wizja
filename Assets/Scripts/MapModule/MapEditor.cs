@@ -104,7 +104,7 @@ public class MapEditor : MonoBehaviour
         map.gameData.allNeededData.mapData.mapName = mapNameInput.text;
         map.gameData.mapName = mapNameInput.text;
         map.gameData.author = UserInfo.Instance.login;
-
+        map.gameData.allNeededData.mapData.budget = FindObjectOfType<Budget>().getCurrentAmount();
 
 
     }

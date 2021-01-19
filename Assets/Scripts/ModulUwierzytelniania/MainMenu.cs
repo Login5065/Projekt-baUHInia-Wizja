@@ -45,6 +45,11 @@ public class MainMenu : MonoBehaviour
     public void StartGame() //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         //SceneManager.LoadScene(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        if (zalogowany)
+        {
+            UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken);
+            SceneManager.LoadScene(1);
+        }
     } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void Login()
     {

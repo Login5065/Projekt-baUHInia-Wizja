@@ -9,7 +9,8 @@ public class Budget : MonoBehaviour
 
     void Start()
     {
-
+        if(MapManager.Instance.currentGameData != null)
+            currentAmount = MapManager.Instance.currentGameData.getBudget();
     }
 
     public void build(GameObject bud)

@@ -1,0 +1,160 @@
+{
+    "mapName": "Local1",
+    "author": "Admin",
+    "date": "1/18/2021 11:53:13 AM",
+    "UUID": "c518f754-de72-476c-b70e-10034cb49afc",
+    "allNeededData": {
+        "mapData": {
+            "mapName": "",
+            "budget": 0,
+            "columnsNumber": 4,
+            "rowsNumber": 4,
+            "tiles": [
+                {
+                    "X": 0,
+                    "Y": 0,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 0,
+                    "Y": 1,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 0,
+                    "Y": 2,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 0,
+                    "Y": 3,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 1,
+                    "Y": 0,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 1,
+                    "Y": 1,
+                    "TerrainType": 3,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": false
+                },
+                {
+                    "X": 1,
+                    "Y": 2,
+                    "TerrainType": 3,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": false
+                },
+                {
+                    "X": 1,
+                    "Y": 3,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 2,
+                    "Y": 0,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 2,
+                    "Y": 1,
+                    "TerrainType": 3,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": false
+                },
+                {
+                    "X": 2,
+                    "Y": 2,
+                    "TerrainType": 3,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": false
+                },
+                {
+                    "X": 2,
+                    "Y": 3,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 3,
+                    "Y": 0,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 3,
+                    "Y": 1,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 3,
+                    "Y": 2,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                },
+                {
+                    "X": 3,
+                    "Y": 3,
+                    "TerrainType": 0,
+                    "tileHeat": {
+                        "instanceID": 0
+                    },
+                    "canPlaceObjects": true
+                }
+            ]
+        }
+    }
+}

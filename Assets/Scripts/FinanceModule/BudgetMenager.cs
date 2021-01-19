@@ -130,52 +130,52 @@ public class BudgetMenager : MonoBehaviour
 
     public void setBuildingsPrice()
     {
-        if(budynekPriceInput.text == null)
+        if(budynekPriceInput.text == "")
             bdprice = 0;
         else
             bdprice = int.Parse(budynekPriceInput.text);
         
-        if (niskibudynekPriceInput.text == null)
+        if (niskibudynekPriceInput.text == "")
             nisbdprice = 0;
         else
             nisbdprice = int.Parse(niskibudynekPriceInput.text);
         
-        if (budynekLimitsInput.text == null)
+        if (budynekLimitsInput.text == "")
             bdlimits = 0;
         else
             bdlimits = int.Parse(budynekLimitsInput.text);
 
-        if (niskibudynekLimitsInput.text == null)
+        if (niskibudynekLimitsInput.text == "")
             nisbdlimits = 0;
         else
             nisbdlimits = int.Parse(niskibudynekLimitsInput.text);
 
-        if (benchPriceInput.text == null)
+        if (benchPriceInput.text == "")
             benprice = 0;
         else
             benprice = int.Parse(benchPriceInput.text);
 
-        if (benchLimitsInput.text == null)
+        if (benchLimitsInput.text == "")
             benlimits = 0;
         else
             benlimits = int.Parse(benchLimitsInput.text);
 
-        if (treePriceInput.text == null)
+        if (treePriceInput.text == "")
             treeprice = 0;
         else
             treeprice = int.Parse(treePriceInput.text);
 
-        if (treeLimitsInput.text == null)
+        if (treeLimitsInput.text == "")
             treelimits = 0;
         else
             treelimits = int.Parse(treeLimitsInput.text);
 
-        if (fountainPriceInput.text == null)
+        if (fountainPriceInput.text == "")
             ftprice = 0;
         else
             ftprice = int.Parse(fountainPriceInput.text);
 
-        if (fountainLimitsInput.text == null)
+        if (fountainLimitsInput.text == "")
             ftlimits = 0;
         else
             ftlimits = int.Parse(fountainLimitsInput.text);

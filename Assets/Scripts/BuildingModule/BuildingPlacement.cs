@@ -99,6 +99,7 @@ public class BuildingPlacement : MonoBehaviour
                                 treeAmount++;
                             if (currentBuilding.gameObject.tag == "budynek05")
                                 fountainAmount++;
+                            GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().Add(currentBuilding);
                             currentBuilding = null;
                             Destroy(redBuilding);
                             Destroy(greenBuilding);
@@ -167,11 +168,9 @@ public class BuildingPlacement : MonoBehaviour
 
     //ABY DODAC OBIEKT NALEZY GO UMIESCIC W BUTTON-ie W GUI
     public void SetItem(GameObject b)
-    {
+    {  
         currentBuilding = Instantiate(b);
         placeableBuildings = currentBuilding.GetComponent<PlaceableBuildings>();
-        GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().Add(b);
-        GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().CheckJsonList();
     }
     public void SetItemGreen(GameObject green)
     {

@@ -8,7 +8,7 @@ using UnityEngine;
 public class Buildings
 {
     public List<BuildingObjectData> BuildingObjectData = new List<BuildingObjectData>();
-
+    public List<BuildingPrefabData> tab = new List<BuildingPrefabData>();
 }
 [System.Serializable]
 public class BuildingObjectData
@@ -35,8 +35,8 @@ public class BuildingObjectData
 
 
         this.scale = go.transform.localScale;
-        this.position = go.transform.position;
-        this.rotation = go.transform.rotation;
+        this.position = go.transform.localPosition;
+        this.rotation = go.transform.localRotation;
 
         this.price = go.GetComponent<BuildingInfo>().price;
         this.limits = go.GetComponent<BuildingInfo>().limits;
@@ -55,11 +55,48 @@ public class BuildingObjectData
 
 }
 
-
-public class BuildingManagment : MonoBehaviour
+[System.Serializable]
+public class BuildingPrefabData
 {
+    public int price = 0;
+    public int limits = 0;
+    public float heat = 0;
+
+    public BuildingPrefabData(int x, int y, float z)
+    {
+        this.price = x;
+        this.limits = y;
+        this.heat = z;
+    }
+}
+
+
+    public class BuildingManagment : MonoBehaviour
+{
+    List<BuildingObjectData> lista;
+    List<BuildingPrefabData> Tab;
     Buildings buildings = new Buildings();
+    //private GameObject prefab;
+    public GameObject prefab1;
+    public GameObject prefab2;
+    public GameObject prefab3;
+    public GameObject prefab4;
+    public GameObject prefab5;
+    public GameObject[] prefabs = new GameObject[5];
+    int prefabCount = 0;
+    public GameObject FinanceObject;
+
     string json = null;
+
+
+    public void SavePrefab()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            buildings.tab.Add(new BuildingPrefabData(prefabs[i].GetComponent<BuildingInfo>().price, prefabs[i].GetComponent<BuildingInfo>().limits, 
+                prefabs[i].GetComponent<BuildingInfo>().heat));
+        }
+    }
 
     public void Add(GameObject g)
     {
@@ -87,6 +124,7 @@ public class BuildingManagment : MonoBehaviour
         buildings = JsonUtility.FromJson<Buildings>(json);
         return buildings.BuildingObjectData;
     }
+
     public void Save()
     {
         json = JsonUtility.ToJson(buildings);
@@ -97,11 +135,99 @@ public class BuildingManagment : MonoBehaviour
         Debug.Log("Amount of buildings inside " + buildings.BuildingObjectData.Count());
     }
     public Buildings getBuildingData() {
+        SavePrefab();
         return buildings;
     }
     public int getCount() {
         return buildings.BuildingObjectData.Count();
     }
+
+    public void getLista()
+    {
+        lista = MapManager.Instance.currentGameData.getBuildingList();
+    }
+    public void getTab()
+    {
+        Tab = MapManager.Instance.currentGameData.getFinanceList();
+    }
+
+    public void dodajDane(int i, GameObject prefab)
+    {
+        prefab.GetComponent<Transform>().localPosition = lista[i].position;
+        prefab.GetComponent<Transform>().localRotation = lista[i].rotation;
+        prefab.GetComponent<Transform>().localScale = lista[i].scale;
+        prefab.GetComponent<BuildingPosition>().x = lista[i].x;
+        prefab.GetComponent<BuildingPosition>().z = lista[i].z;
+        prefab.GetComponent<BuildingPosition>().width = lista[i].width;
+        prefab.GetComponent<BuildingPosition>().length = lista[i].length;
+        prefab.GetComponent<BuildingInfo>().price = lista[i].price;
+        prefab.GetComponent<BuildingInfo>().limits = lista[i].limits;
+    }
+    public void Awake()
+    {
+        getLista();
+        getTab();
+        FinanceUpdate();
+        BuildingListCount();
+        BuildingInstantiate();
+        
+
+    }
+    private void BuildingListCount()
+    {
+        foreach(BuildingObjectData list in lista)
+        {
+            prefabCount++;
+        }
+    }
+    private void BuildingInstantiate()
+    {
+        for(int i = 0; i<prefabCount; i++)
+        {
+            if(lista[i].tag == "budynek01")
+            {
+                dodajDane(i, prefab1);
+                Instantiate(prefab1);
+                FinanceObject.GetComponent<PrefabInfo>().budAmount++;
+            }
+            if (lista[i].tag == "budynek02")
+            {
+                dodajDane(i, prefab2);
+                Instantiate(prefab2);
+                FinanceObject.GetComponent<PrefabInfo>().nisbudAmount++;
+            }
+            if (lista[i].tag == "budynek03")
+            {
+                dodajDane(i, prefab3);
+                Instantiate(prefab3);
+                FinanceObject.GetComponent<PrefabInfo>().benchAmount++;
+            }
+            if (lista[i].tag == "budynek04")
+            {
+                dodajDane(i, prefab4);
+                Instantiate(prefab4);
+                FinanceObject.GetComponent<PrefabInfo>().treeAmount++;
+            }
+            if (lista[i].tag == "budynek05")
+            {
+                dodajDane(i, prefab5);
+                Instantiate(prefab5);
+                FinanceObject.GetComponent<PrefabInfo>().fountainAmount++;
+            }
+            
+        }
+    }
+
+    private void FinanceUpdate()
+    {
+        for(int i = 0; i<5; i++)
+        {
+            FinanceObject.GetComponent<PrefabInfo>().price[i] = Tab[i].price;
+            FinanceObject.GetComponent<PrefabInfo>().limits[i] = Tab[i].limits;
+            FinanceObject.GetComponent<PrefabInfo>().heat[i] = Tab[i].heat;
+        }
+   }
+
 
 
 

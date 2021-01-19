@@ -26,6 +26,15 @@ public class GameData
         return allNeededData.mapData.budget;
     }
 
+    public List <BuildingObjectData> getBuildingList()
+    {
+        return allNeededData.buildings.BuildingObjectData;
+    }
+    public List <BuildingPrefabData> getFinanceList()
+    {
+        return allNeededData.buildings.tab;
+    }
+
 }
 
 [System.Serializable]

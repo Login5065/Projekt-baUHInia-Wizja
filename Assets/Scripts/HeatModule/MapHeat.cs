@@ -6,12 +6,14 @@ public class MapHeat
 {
     public static float globalTemperature { get; set; }
     private float heatDecayRadius { get; set; }
+    private double heatScore;
     
     // Start is called before the first frame update
     void Start()
     {
         globalTemperature = 20.0f;
         heatDecayRadius = 1.0f;
+        heatScore = 0.0f;
     }
 
     // Update is called once per frame
@@ -20,39 +22,53 @@ public class MapHeat
         
     }
 
-    public float CalculateTemperature(Tile[] tiles, List<GameObject> allObjects)
+    public void CalculateTemperature(Tile[] tiles, List<GameObject> allObjects)
     {
-        List<GameObject> onlyBuildings = prepList(allObjects);
+        List<GameObject> onlyBuildings = PrepareList(allObjects);
+        heatScore = 0.0f;
+        int count = 0;
         foreach (var tile in tiles) {
             float addTemperature = 0.0f;
             addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
             tile.tileHeat.localTemperature = globalTemperature + addTemperature;
+            CalculateScore(tile.tileHeat.localTemperature);
+            count++;
         }
-        return 0.0f;
+        CalculateScore(count);
     }
 
-    public float ReturnHeatScore(Tile[] tiles)
+    private void CalculateScore(double temperature)
     {
-        float score = 0;
-        int index = 0;
-        foreach (var tile in tiles) {
-            score += tile.tileHeat.localTemperature;
-            index++;
-        }
-        score /= (float) (index > 0 ? index : 1);
-        return score;
+        heatScore += temperature;
+    }
+
+    private void CalculateScore(int count)
+    {
+        heatScore /= count;
+    }
+
+    public double ReturnHeatScore()
+    {
+        return heatScore;
     }
 
     // Do not use nor uncomment
     private double ComputeTemperature(List<GameObject> buildings, Tile.TERRAIN_TYPE type, int tileX, int tileY) 
     {
         double addTemperature = 0.0f;
+        bool selfCover = false;
 
         foreach (var building in buildings) {
             double buildingHeat = building.GetComponent<BuildingInfo>().heat;
             int width = building.GetComponent<BuildingPosition>().width, length = building.GetComponent<BuildingPosition>().length;
             float xCenter = building.GetComponent<Transform>().position.x + building.GetComponent<BuildingPosition>().x + width / 2.0f;
             float yCenter = building.GetComponent<Transform>().position.z + building.GetComponent<BuildingPosition>().z + length / 2.0f;
+            
+            if(!selfCover && tileX > xCenter - (width / 2) && tileX < xCenter + (width / 2) && tileY > yCenter - (width / 2) && tileY < yCenter + (width / 2))
+            {
+                selfCover = true;
+            }
+
             float X = System.Math.Abs(xCenter - tileX), Y = System.Math.Abs(yCenter - tileY);
             X = (width / 2 > X ? 0 : X - width / 2);
             Y = (length / 2 > Y ? 0 : Y - length / 2);
@@ -61,7 +77,7 @@ public class MapHeat
             addTemperature += heatBase * System.Math.Exp(-diff / heatModSquared);
         }
 
-        if(tileX != 0 || tileY != 0)
+        if(!selfCover)
         {
             addTemperature = TerrainHeat(type, addTemperature);
         }
@@ -96,7 +112,7 @@ public class MapHeat
         }
     }
 
-    private List<GameObject> prepList(List<GameObject> prelist)
+    private List<GameObject> PrepareList(List<GameObject> prelist)
     {
         List<GameObject> buildingList = new List<GameObject>();
         foreach (GameObject thing in prelist)

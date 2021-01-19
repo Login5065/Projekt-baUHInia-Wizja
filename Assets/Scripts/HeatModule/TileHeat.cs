@@ -10,4 +10,5 @@ public class TileHeat
     {
         localTemperature = MapHeat.globalTemperature;
     }
+
 }

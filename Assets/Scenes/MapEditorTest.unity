@@ -3646,6 +3646,10 @@ MonoBehaviour:
         - price: 0
           limits: 0
           heat: 0
+      heatData:
+        globalTemperature: 0
+        heatDecayRadius: 0
+        heatScore: 0
   mapData:
     mapName: 
     budget: 0
@@ -4348,6 +4352,53 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1178151806}
   m_CullTransparentMesh: 0
+--- !u!1 &1203638427
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1203638428}
+  - component: {fileID: 1203638429}
+  m_Layer: 0
+  m_Name: MapHeat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1203638428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203638427}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 123.344185, y: -2.9952607, z: -121.24756}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1203638429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203638427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea9ccfe7453c9ff45a682409f12bbd28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  heatData:
+    globalTemperature: 20
+    heatDecayRadius: 1
+    heatScore: 0
 --- !u!1 &1204112886
 GameObject:
   m_ObjectHideFlags: 0

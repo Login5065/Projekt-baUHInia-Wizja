@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MapHeat
+public class MapHeat : MonoBehaviour
 {
+    public static MapHeat Instance;
     public HeatData heatData;
     
     // Start is called before the first frame update
@@ -14,15 +15,20 @@ public class MapHeat
         heatData.heatScore = 20.0f;
     }
 
+    public void Awake()
+    {
+        Instance = this;
+    }
+
     // Update is called once per frame
     void Update()
     {
         
     }
 
-    public void CalculateTemperature(Tile[] tiles, List<GameObject> allObjects)
+    public void CalculateTemperature(Tile[] tiles)
     {
-        List<GameObject> onlyBuildings = PrepareList(allObjects);
+        List<GameObject> onlyBuildings = PrepareList();
         heatData.heatScore = 0.0f;
         int count = 0;
         Debug.Log("Preparation for couting heat!");
@@ -52,11 +58,11 @@ public class MapHeat
     public int ReturnHeatScore()
     {
         int coolingBonus = 0;
-        while(heatData.heatScore < 20.d)
+        while(heatData.heatScore < 20.0d)
         {
-            coolingBonus = 100 * (20.d - heatData.heatScore);
+            coolingBonus = 100 * (int) (20.0d - heatData.heatScore);
         }
-        return coolingBonus + (int) (20000.0d / (heatData.heatScore < 20.d ? 20.d : heatData.heatScore) );
+        return coolingBonus + (int) (20000.0d / (heatData.heatScore < 20.0d ? 20.0d : heatData.heatScore) );
     }
 
     // Do not use nor uncomment
@@ -119,17 +125,32 @@ public class MapHeat
         }
     }
 
-    private List<GameObject> PrepareList(List<GameObject> prelist)
+    private List<GameObject> PrepareList()
     {
         List<GameObject> buildingList = new List<GameObject>();
-        foreach (GameObject thing in prelist)
+        foreach (GameObject thing in GameObject.FindGameObjectsWithTag("budynek01"))
         {
-            if(thing.layer == 9) 
-            {
-                buildingList.Add(thing);
-            }
+            buildingList.Add(thing);
+        }
+        foreach (GameObject thing in GameObject.FindGameObjectsWithTag("budynek02"))
+        {
+            buildingList.Add(thing);
+        }
+        foreach (GameObject thing in GameObject.FindGameObjectsWithTag("budynek03"))
+        {
+            buildingList.Add(thing);
+        }
+        foreach (GameObject thing in GameObject.FindGameObjectsWithTag("budynek04"))
+        {
+            buildingList.Add(thing);
+        }
+        foreach (GameObject thing in GameObject.FindGameObjectsWithTag("budynek05"))
+        {
+            buildingList.Add(thing);
         }
         return buildingList;
+
+
     }
 
 }

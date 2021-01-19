@@ -170,8 +170,7 @@ public class BuildingPrefabData
         FinanceUpdate();
         BuildingListCount();
         BuildingInstantiate();
-        
-
+        HeatUpdate();
     }
     private void BuildingListCount()
     {
@@ -226,6 +225,11 @@ public class BuildingPrefabData
             FinanceObject.GetComponent<PrefabInfo>().limits[i] = Tab[i].limits;
             FinanceObject.GetComponent<PrefabInfo>().heat[i] = Tab[i].heat;
         }
+   }
+
+   private void HeatUpdate()
+   {
+       MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
    }
 
 

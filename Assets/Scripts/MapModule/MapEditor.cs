@@ -105,7 +105,7 @@ public class MapEditor : MonoBehaviour
         map.gameData.mapName = mapNameInput.text;
         map.gameData.author = UserInfo.Instance.login;
         map.gameData.allNeededData.mapData.budget = FindObjectOfType<Budget>().getCurrentAmount();
-        map.gameData.allNeededData.buildings = GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().getBuildingData();
+        map.gameData.allNeededData.buildings = FindObjectOfType<BuildingManagment>().getBuildingData();
 
 
     }

@@ -10,7 +10,7 @@ public class Buildings
     public List<BuildingObjectData> BuildingObjectData = new List<BuildingObjectData>();
 
 }
-
+[System.Serializable]
 public class BuildingObjectData
 {
     public string name;

@@ -2427,7 +2427,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Load Map
+  m_Text: Go back
 --- !u!1 &2535843178809143221
 GameObject:
   m_ObjectHideFlags: 0
@@ -4414,11 +4414,11 @@ RectTransform:
   m_Father: {fileID: 1998694881174238730}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 81.82, y: 17.150024}
-  m_SizeDelta: {x: 160, y: 29.400002}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 1.8200073, y: -106.14998}
+  m_SizeDelta: {x: 160, y: 29.399994}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &5740547704071848699
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4833,11 +4833,11 @@ RectTransform:
   m_Father: {fileID: 1998694881174238730}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 83.52002, y: 41.349976}
-  m_SizeDelta: {x: 160, y: 16.9}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 3.5200195, y: -88.20002}
+  m_SizeDelta: {x: 160, y: 16.899994}
+  m_Pivot: {x: 0, y: 1}
 --- !u!222 &1469220414694085323
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7712,7 +7712,7 @@ GameObject:
   - component: {fileID: 7740129277608887751}
   - component: {fileID: 8037911658563845402}
   m_Layer: 0
-  m_Name: LoadMap
+  m_Name: Go Back
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7819,7 +7819,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 8842701553473432099}
-        m_MethodName: LoadMap
+        m_MethodName: GoToMapSelect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

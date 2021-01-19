@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapEditor : MonoBehaviour
@@ -121,6 +122,11 @@ public class MapEditor : MonoBehaviour
         if (map.gameData == null)
             Debug.Log("map gamedata is null");
         MapManager.SaveLocal(map.gameData);
+    }
+
+    public void GoToMapSelect()
+    {
+        SceneManager.LoadScene("MapSelect");
     }
 
     public void SaveMapServer()

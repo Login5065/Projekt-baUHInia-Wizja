@@ -20,6 +20,13 @@ public class MapManager : MonoBehaviour
     bool mapEntriesLoaded;
     private void Awake()
     {
+        if (!Directory.Exists(Application.persistentDataPath + "/LocalMaps/"))
+        {
+            //if it doesn't, create it
+            Directory.CreateDirectory(Application.persistentDataPath + "/LocalMaps/");
+
+        }
+
         if (Instance == false)
         {
             Instance = this;
@@ -75,7 +82,7 @@ public class MapManager : MonoBehaviour
         {
             currentGameData = _gameData;
             string jsonMapData = JsonUtility.ToJson(currentGameData, true);
-            File.WriteAllText(("Assets/LocalMaps/" + currentGameData.mapName + ".json"), jsonMapData);
+            File.WriteAllText((Application.persistentDataPath+ "/LocalMaps/" + currentGameData.mapName + ".json"), jsonMapData);
             SceneManager.LoadScene("MapEditorTEST");
         }
 
@@ -307,7 +314,7 @@ public class MapManager : MonoBehaviour
     {
         gameData = UpdateGameDataInfo(gameData);
         string jsonMapData = JsonUtility.ToJson(gameData, true);
-        File.WriteAllText(("Assets/LocalMaps/" + gameData.mapName + ".json"), jsonMapData);
+        File.WriteAllText((Application.persistentDataPath + "/LocalMaps/" + gameData.mapName + ".json"), jsonMapData);
     }
 
     /// <summary>
@@ -317,7 +324,7 @@ public class MapManager : MonoBehaviour
     /// <returns>MapData of map with passed name</returns>
     public static GameData LoadLocal(string mapName)
     {
-        string savePath = "Assets/LocalMaps/" + mapName + ".json";
+        string savePath = Application.persistentDataPath + "/LocalMaps/" + mapName + ".json";
         if (File.Exists(savePath))
         {
             string json = File.ReadAllText(savePath);

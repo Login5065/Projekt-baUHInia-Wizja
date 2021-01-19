@@ -25,14 +25,17 @@ public class MapHeat
         List<GameObject> onlyBuildings = PrepareList(allObjects);
         heatData.heatScore = 0.0f;
         int count = 0;
+        Debug.Log("Preparation for couting heat!");
         foreach (var tile in tiles) 
         {
             float addTemperature = 0.0f;
             addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
             tile.tileHeat.localTemperature = heatData.globalTemperature + addTemperature;
             CalculateScore(tile.tileHeat.localTemperature);
+            Debug.Log("For tile, X: " + tile.X + ", Y: " + tile.Y + ", tileTemperature: " + tile.tileHeat.localTemperature);
             count++;
         }
+        Debug.Log("Counted all heat, average temperature: " + heatData.heatScore);
         CalculateScore(count);
     }
 
@@ -48,7 +51,12 @@ public class MapHeat
 
     public int ReturnHeatScore()
     {
-        return (int) (10000.0d / heatData.heatScore);
+        int coolingBonus = 0;
+        while(heatData.heatScore < 20.d)
+        {
+            coolingBonus = 100 * (20.d - heatData.heatScore);
+        }
+        return coolingBonus + (int) (20000.0d / (heatData.heatScore < 20.d ? 20.d : heatData.heatScore) );
     }
 
     // Do not use nor uncomment

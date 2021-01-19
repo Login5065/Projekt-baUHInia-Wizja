@@ -99,6 +99,7 @@ public class BuildingPlacement : MonoBehaviour
                                 treeAmount++;
                             if (currentBuilding.gameObject.tag == "budynek05")
                                 fountainAmount++;
+                            //MapHeat.CalculateTemperature(GameMap.MapData.tiles, BuildingManagment.buildings);
                             currentBuilding = null;
                             Destroy(redBuilding);
                             Destroy(greenBuilding);
@@ -145,6 +146,7 @@ public class BuildingPlacement : MonoBehaviour
                         treeAmount--;
                     if (BuildingHit.gameObject.tag == "budynek05")
                         fountainAmount--;
+                    //MapHeat.CalculateTemperature();
                     FindObjectOfType<BuildingManagment>().Remove(BuildingHit.gameObject);
                     Destroy(BuildingHit.gameObject);                                                
                 }

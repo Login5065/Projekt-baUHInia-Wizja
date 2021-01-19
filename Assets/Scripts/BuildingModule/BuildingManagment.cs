@@ -13,7 +13,7 @@ public class Buildings
 [System.Serializable]
 public class BuildingObjectData
 {
-    public string name;
+    
     public Vector3 scale;
     public Vector3 position;
     public Quaternion rotation;
@@ -27,11 +27,13 @@ public class BuildingObjectData
     public int width;
     public int length;
     public string tag;
+    public int ID;
 
     public BuildingObjectData(GameObject go)
     {
 
-        this.name = go.name;
+
+
         this.scale = go.transform.localScale;
         this.position = go.transform.position;
         this.rotation = go.transform.rotation;
@@ -45,6 +47,8 @@ public class BuildingObjectData
         this.length = go.GetComponent<BuildingPosition>().length;
         this.width = go.GetComponent<BuildingPosition>().width;
         this.tag = go.tag;
+
+        this.ID = go.GetInstanceID();
 
     }
 
@@ -60,12 +64,21 @@ public class BuildingManagment : MonoBehaviour
     public void Add(GameObject g)
     {
         buildings.BuildingObjectData.Add(new BuildingObjectData(g));
-        Debug.Log("Saving current Status of buildings");
+        Debug.Log("Status of buildings ... nr of buildings " + getCount());
         Save();
     }
-    public void Remove(GameObject g)
+    public bool Remove(GameObject g)
     {
-        buildings.BuildingObjectData.Remove(new BuildingObjectData(g));
+        for (int i = 0; i < getCount(); i++)
+        {
+            if (buildings.BuildingObjectData[i].ID == g.GetInstanceID()) {
+                buildings.BuildingObjectData.Remove(buildings.BuildingObjectData[i]);
+                Debug.Log("Status of buildings ... nr of buildings " + getCount());
+                return true;
+            }
+        
+        }
+        return false;
         Save();
     }
 
@@ -85,6 +98,9 @@ public class BuildingManagment : MonoBehaviour
     }
     public Buildings getBuildingData() {
         return buildings;
+    }
+    public int getCount() {
+        return buildings.BuildingObjectData.Count();
     }
 
 

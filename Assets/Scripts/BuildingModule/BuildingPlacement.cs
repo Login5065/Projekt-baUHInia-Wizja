@@ -145,6 +145,7 @@ public class BuildingPlacement : MonoBehaviour
                         treeAmount--;
                     if (BuildingHit.gameObject.tag == "budynek05")
                         fountainAmount--;
+                    FindObjectOfType<BuildingManagment>().Remove(BuildingHit.gameObject);
                     Destroy(BuildingHit.gameObject);                                                
                 }
             }
@@ -214,6 +215,7 @@ public class BuildingPlacement : MonoBehaviour
     }
     void Demolish(int width, int length, int demolishX, int demolishY)
     {
+       
         for (int i = 0; i < width; i++)
         {
             for (int j = 0; j < length; j++)
@@ -224,6 +226,7 @@ public class BuildingPlacement : MonoBehaviour
                 obiekt.GetComponent<TileComponent>().tile.objectPlaced = false;
             }
         }
+        
     }
     void Rotation()
     {

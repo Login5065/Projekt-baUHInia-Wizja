@@ -20,6 +20,7 @@ public class BudgetMenager : MonoBehaviour
     public InputField fountainLimitsInput;
     public InputField BudgetInput;
     public Text budgettext;
+    public Button confirmButton;
 
     public GameObject budynek;
     public GameObject niskibudynek;
@@ -70,6 +71,36 @@ public class BudgetMenager : MonoBehaviour
     void Start()
     {
         budget = FindObjectOfType<Budget>();
+        if(MainMenu.isAdmin == false)
+        {
+            budynekPriceInput.gameObject.SetActive(false);
+            niskibudynekPriceInput.gameObject.SetActive(false);
+            budynekLimitsInput.gameObject.SetActive(false);
+            niskibudynekLimitsInput.gameObject.SetActive(false);
+            benchPriceInput.gameObject.SetActive(false);
+            benchLimitsInput.gameObject.SetActive(false);
+            treePriceInput.gameObject.SetActive(false);
+            treeLimitsInput.gameObject.SetActive(false);
+            fountainPriceInput.gameObject.SetActive(false);
+            fountainLimitsInput.gameObject.SetActive(false);
+            BudgetInput.gameObject.SetActive(false);
+            confirmButton.gameObject.SetActive(false);
+        }
+        if (MainMenu.isAdmin == true)
+        {
+            budynekPriceInput.gameObject.SetActive(true);
+            niskibudynekPriceInput.gameObject.SetActive(true);
+            budynekLimitsInput.gameObject.SetActive(true);
+            niskibudynekLimitsInput.gameObject.SetActive(true);
+            benchPriceInput.gameObject.SetActive(true);
+            benchLimitsInput.gameObject.SetActive(true);
+            treePriceInput.gameObject.SetActive(true);
+            treeLimitsInput.gameObject.SetActive(true);
+            fountainPriceInput.gameObject.SetActive(true);
+            fountainLimitsInput.gameObject.SetActive(true);
+            BudgetInput.gameObject.SetActive(true);
+            confirmButton.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -96,22 +127,66 @@ public class BudgetMenager : MonoBehaviour
 
     public void setBuildingsPrice()
     {
-        bdprice = int.Parse(budynekPriceInput.text);
-        nisbdprice = int.Parse(niskibudynekPriceInput.text);
-        bdlimits = int.Parse(budynekLimitsInput.text);
-        nisbdlimits = int.Parse(niskibudynekLimitsInput.text);
-        benprice = int.Parse(benchPriceInput.text);
-        benlimits = int.Parse(benchLimitsInput.text);
-        treeprice = int.Parse(treePriceInput.text);
-        treelimits = int.Parse(treeLimitsInput.text);
-        ftprice = int.Parse(fountainPriceInput.text);
-        ftlimits = int.Parse(fountainLimitsInput.text);
-        Budget = int.Parse(BudgetInput.text);
-        budynek.gameObject.GetComponent<BuildingInfo>().changeProperty(bdprice, 0, bdlimits);
-        niskibudynek.gameObject.GetComponent<BuildingInfo>().changeProperty(nisbdprice, 0, nisbdlimits);
-        bench.gameObject.GetComponent<BuildingInfo>().changeProperty(benprice, 0, benlimits);
-        tree.gameObject.GetComponent<BuildingInfo>().changeProperty(treeprice, 0, treelimits);
-        fountain.gameObject.GetComponent<BuildingInfo>().changeProperty(ftprice, 0, ftlimits);
+        if(budynekPriceInput.text == null)
+            bdprice = 0;
+        else
+            bdprice = int.Parse(budynekPriceInput.text);
+        
+        if (niskibudynekPriceInput.text == null)
+            nisbdprice = 0;
+        else
+            nisbdprice = int.Parse(niskibudynekPriceInput.text);
+        
+        if (budynekLimitsInput.text == null)
+            bdlimits = 0;
+        else
+            bdlimits = int.Parse(budynekLimitsInput.text);
+
+        if (niskibudynekLimitsInput.text == null)
+            nisbdlimits = 0;
+        else
+            nisbdlimits = int.Parse(niskibudynekLimitsInput.text);
+
+        if (benchPriceInput.text == null)
+            benprice = 0;
+        else
+            benprice = int.Parse(benchPriceInput.text);
+
+        if (benchLimitsInput.text == null)
+            benlimits = 0;
+        else
+            benlimits = int.Parse(benchLimitsInput.text);
+
+        if (treePriceInput.text == null)
+            treeprice = 0;
+        else
+            treeprice = int.Parse(treePriceInput.text);
+
+        if (treeLimitsInput.text == null)
+            treelimits = 0;
+        else
+            treelimits = int.Parse(treeLimitsInput.text);
+
+        if (fountainPriceInput.text == null)
+            ftprice = 0;
+        else
+            ftprice = int.Parse(fountainPriceInput.text);
+
+        if (fountainLimitsInput.text == null)
+            ftlimits = 0;
+        else
+            ftlimits = int.Parse(fountainLimitsInput.text);
+
+        if (BudgetInput.text == null)
+            Budget = 0;
+        else
+            Budget = int.Parse(BudgetInput.text);
+
+        budynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(bdprice, bdlimits);
+        niskibudynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(nisbdprice, nisbdlimits);
+        bench.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(benprice, benlimits);
+        tree.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(treeprice, treelimits);
+        fountain.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(ftprice, ftlimits);
         budget.setCurrentAmount(Budget);
     }
 

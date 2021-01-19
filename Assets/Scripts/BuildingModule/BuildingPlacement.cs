@@ -27,6 +27,14 @@ public class BuildingPlacement : MonoBehaviour
     void Start()
     {
         budget = FindObjectOfType<Budget>();
+        if(budAmount == 0 && nisbudAmount == 0 && benchAmount == 0 && treeAmount == 0 && fountainAmount == 0)
+        {
+            budAmount = FindObjectOfType<BudgetMenager>().getBud();
+            nisbudAmount = FindObjectOfType<BudgetMenager>().getNisBud();
+            benchAmount = FindObjectOfType<BudgetMenager>().getBen();
+            treeAmount = FindObjectOfType<BudgetMenager>().getTree();
+            fountainAmount = FindObjectOfType<BudgetMenager>().getFou();
+        }
     }
 
     // Update is called once per frame

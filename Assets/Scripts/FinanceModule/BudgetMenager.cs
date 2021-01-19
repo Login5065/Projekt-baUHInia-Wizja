@@ -28,6 +28,7 @@ public class BudgetMenager : MonoBehaviour
     public GameObject bench;
     public GameObject tree;
     public GameObject fountain;
+    public GameObject budynki;
 
     private Budget budget;
     private int bdprice;
@@ -191,6 +192,55 @@ public class BudgetMenager : MonoBehaviour
         tree.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(treeprice, treelimits);
         fountain.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(ftprice, ftlimits);
         budget.setCurrentAmount(Budget);
+    }
+
+    public void setBuildingsPriceLoad()
+    {
+        bdprice = budynki.GetComponent<PrefabInfo>().price[0];
+        nisbdprice = budynki.GetComponent<PrefabInfo>().price[1];
+        bdlimits = budynki.GetComponent<PrefabInfo>().limits[0];
+        nisbdlimits = budynki.GetComponent<PrefabInfo>().limits[1];
+        benprice = budynki.GetComponent<PrefabInfo>().price[2];
+        benlimits = budynki.GetComponent<PrefabInfo>().limits[2];
+        treeprice = budynki.GetComponent<PrefabInfo>().price[3];
+        treelimits = budynki.GetComponent<PrefabInfo>().limits[3];
+        ftprice = budynki.GetComponent<PrefabInfo>().price[4];
+        ftlimits = budynki.GetComponent<PrefabInfo>().limits[4];
+        budynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(bdprice, bdlimits);
+        niskibudynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(nisbdprice, nisbdlimits);
+        bench.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(benprice, benlimits);
+        tree.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(treeprice, treelimits);
+        fountain.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(ftprice, ftlimits);
+    }
+
+    public int getBud()
+    {
+        int budAm = budynki.GetComponent<PrefabInfo>().budAmount;
+        return budAm;
+    }
+
+    public int getNisBud()
+    {
+        int nisbudAm = budynki.GetComponent<PrefabInfo>().nisbudAmount;
+        return nisbudAm;
+    }
+
+    public int getBen()
+    {
+        int benAm = budynki.GetComponent<PrefabInfo>().benchAmount;
+        return benAm;
+    }
+
+    public int getTree()
+    {
+        int treeAm = budynki.GetComponent<PrefabInfo>().treeAmount;
+        return treeAm;
+    }
+
+    public int getFou()
+    {
+        int fouAm = budynki.GetComponent<PrefabInfo>().fountainAmount;
+        return fouAm;
     }
 
     public void setBudgetText()

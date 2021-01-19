@@ -62,8 +62,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93edb99e4d960794d9c7d43e3d4ae049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 4
-  limits: 4
+  price: 5
+  limits: 5
   heat: 0
 --- !u!65 &9171076852788709
 BoxCollider:

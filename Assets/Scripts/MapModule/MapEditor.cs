@@ -119,7 +119,7 @@ public class MapEditor : MonoBehaviour
 
     public void SaveMap()
     {
-        if (mapNameInput.text == "" || MapManager.Instance.currentGameData == null)
+        if (mapNameInput.text == "" || map.gameData == null)
             return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;
@@ -135,7 +135,7 @@ public class MapEditor : MonoBehaviour
 
     public void SaveMapServer()
     {
-        if (mapNameInput.text == "" || MapManager.Instance.currentGameData == null)
+        if (mapNameInput.text == "" || map.gameData == null)
             return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;

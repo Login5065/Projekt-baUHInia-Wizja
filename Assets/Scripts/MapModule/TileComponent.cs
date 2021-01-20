@@ -27,8 +27,7 @@ public class TileComponent : MonoBehaviour
         {
 
 
-            //float gradientValue = (tile.tileHeat.localTemperature - MapHeat.Instance.HeatData.tempMin) / ( MapHeat.Instance.HeatData.tempMax - MapHeat.Instance.HeatData.tempMin);
-            float gradientValue = 0.15f;
+            float gradientValue = (float) ( (tile.tileHeat.localTemperature - MapHeat.Instance.heatData.tempMin) / ( MapHeat.Instance.heatData.tempMax - MapHeat.Instance.heatData.tempMin) );
 
             matTemperature.color = gradient.Evaluate(gradientValue);
 

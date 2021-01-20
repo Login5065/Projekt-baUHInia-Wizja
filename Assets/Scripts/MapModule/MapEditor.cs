@@ -175,4 +175,9 @@ public class MapEditor : MonoBehaviour
         userCanEdit = canEdit;
     }
 
+    public void SwitchHeatView()
+    {
+        map.SwitchHeatView();
+    }
+
 }

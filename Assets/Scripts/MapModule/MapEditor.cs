@@ -214,6 +214,7 @@ public class MapEditor : MonoBehaviour
 
     public void SwitchHeatView()
     {
+        MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
         map.SwitchHeatView();
     }
 

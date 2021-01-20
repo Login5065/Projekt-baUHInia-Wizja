@@ -118,6 +118,8 @@ public class MapEditor : MonoBehaviour
 
     public void SaveMap()
     {
+        if (mapNameInput.text == "" || MapManager.Instance.currentGameData == null)
+            return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;
         if (map.gameData == null)
@@ -132,6 +134,8 @@ public class MapEditor : MonoBehaviour
 
     public void SaveMapServer()
     {
+        if (mapNameInput.text == "" || MapManager.Instance.currentGameData == null)
+            return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;
         MapManager.Instance.SaveServerMap(map.gameData);

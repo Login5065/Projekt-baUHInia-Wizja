@@ -63,9 +63,9 @@ public class MapHeat : MonoBehaviour
     public int ReturnHeatScore()
     {
         int coolingBonus = 0;
-        while(heatData.heatScore < heatData.globalTemperature)
+        if (heatData.heatScore < heatData.globalTemperature)
         {
-            coolingBonus = 100 * (int) (heatData.globalTemperature - heatData.heatScore);
+            coolingBonus = (int) ( 100 * (heatData.globalTemperature - heatData.heatScore) );
         }
         return coolingBonus + (int) (20000.0d / (heatData.heatScore < heatData.globalTemperature ? heatData.globalTemperature : heatData.heatScore) );
     }

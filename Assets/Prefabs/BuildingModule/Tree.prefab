@@ -157,9 +157,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93edb99e4d960794d9c7d43e3d4ae049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 5
-  limits: 5
-  heat: -2
+  price: 4
+  limits: 11
+  heat: -3
 --- !u!65 &5658982843293792245
 BoxCollider:
   m_ObjectHideFlags: 0

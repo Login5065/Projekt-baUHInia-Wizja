@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileHeat : MonoBehaviour
+[System.Serializable]
+public class TileHeat
 {
     public float localTemperature { get; set; }
 
     public TileHeat()
     {
-        localTemperature = MapHeat.globalTemperature;
+        localTemperature = MapHeat.Instance.heatData.globalTemperature;
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class MapEditor : MonoBehaviour
@@ -13,6 +14,9 @@ public class MapEditor : MonoBehaviour
     public InputField mapNameInput;
     public InputField rowsNumberInput;
     public InputField columnNumberInput;
+    public InputField tempGlobal;
+    public InputField tempMinInput;
+    public InputField tempMaxInput;
 
     public Tile.TERRAIN_TYPE selectedTerrainType;
     private TileComponent tileHit;
@@ -29,6 +33,12 @@ public class MapEditor : MonoBehaviour
         rowsNumberInput.characterValidation = InputField.CharacterValidation.Integer;
         columnNumberInput.contentType = InputField.ContentType.IntegerNumber;
         columnNumberInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempMinInput.contentType = InputField.ContentType.IntegerNumber;
+        tempMinInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempMaxInput.contentType = InputField.ContentType.IntegerNumber;
+        tempMaxInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempGlobal.contentType = InputField.ContentType.IntegerNumber;
+        tempGlobal.characterValidation = InputField.CharacterValidation.Integer;
 
     }
 
@@ -84,7 +94,14 @@ public class MapEditor : MonoBehaviour
             if ((tileHit = rayHit.collider.GetComponent<TileComponent>()) != null)
             {
                 tileHit.tile.TerrainType = selectedTerrainType;
-                tileHit.tile.canPlaceObjects = userCanEdit;
+                if (selectedTerrainType == Tile.TERRAIN_TYPE.WATER)
+                {
+                    tileHit.tile.canPlaceObjects = false;
+                }
+                else
+                {
+                    tileHit.tile.canPlaceObjects = userCanEdit;
+                }
                 tileHit.UpdateTerrain();
             }
         }
@@ -96,9 +113,38 @@ public class MapEditor : MonoBehaviour
         map.gameData.allNeededData.mapData.mapName = mapNameInput.text;
         map.gameData.mapName = mapNameInput.text;
         map.gameData.author = UserInfo.Instance.login;
+        map.gameData.allNeededData.mapData.budget = FindObjectOfType<Budget>().getCurrentAmount();
+        map.gameData.allNeededData.buildings = FindObjectOfType<BuildingManagment>().getBuildingData();
+        map.gameData.allNeededData.bestScore = FindObjectOfType<Score>().bestScore;
+        map.gameData.allNeededData.heatData = MapHeat.Instance.heatData;
 
+    }
 
+    public void ApplyTempMinMax()
+    {
+        if (tempMinInput.text == "" || tempMaxInput.text == "")
+            return;
 
+        float tempMin = float.Parse(tempMinInput.text);
+        float tempMax = float.Parse(tempMaxInput.text);
+        float global = float.Parse(tempGlobal.text);
+
+        if (tempMin > tempMax)
+        {
+            float tmp = tempMax;
+            tempMax = tempMin;
+            tempMin = tmp;
+        }
+
+        if (global > tempMax)
+            global = tempMax;
+
+        if (global < tempMin)
+            global = tempMin;
+
+        MapHeat.Instance.heatData.tempMin = tempMin;
+        MapHeat.Instance.heatData.tempMax = tempMax;
+        MapHeat.Instance.heatData.tempMax = global;
     }
 
     public void LoadMap()
@@ -109,6 +155,8 @@ public class MapEditor : MonoBehaviour
 
     public void SaveMap()
     {
+        if (mapNameInput.text == "" || map.gameData == null)
+            return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;
         if (map.gameData == null)
@@ -116,8 +164,15 @@ public class MapEditor : MonoBehaviour
         MapManager.SaveLocal(map.gameData);
     }
 
+    public void GoToMapSelect()
+    {
+        SceneManager.LoadScene("MapSelect");
+    }
+
     public void SaveMapServer()
     {
+        if (mapNameInput.text == "" || map.gameData == null)
+            return;
         UpdateGameData();
         //map.mapName = mapNameInput.text;
         MapManager.Instance.SaveServerMap(map.gameData);
@@ -155,6 +210,12 @@ public class MapEditor : MonoBehaviour
     public void UserCanEdit(bool canEdit)
     {
         userCanEdit = canEdit;
+    }
+
+    public void SwitchHeatView()
+    {
+        MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
+        map.SwitchHeatView();
     }
 
 }

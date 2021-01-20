@@ -1,22 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
 
-    private int bestScore;
+    public int bestScore = 0;
+    public int currentScore;
+    public Text scoretext;
 
-    public bool isNewBestScore(int score)
+    void Start()
     {
-        if (score > bestScore)
+        if (MapManager.Instance.currentGameData != null)
+            bestScore = MapManager.Instance.currentGameData.getBestScore();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void isNewBestScore()
+    {
+        currentScore = MapHeat.Instance.ReturnHeatScore();
+        if (currentScore > bestScore)
         {
-            bestScore = score;
-            return true;
+            bestScore = currentScore;
         }
-        else
-        {
-            return false;
-        }
+    }
+
+    public void setScoreText()
+    {
+        int tmp = bestScore;
+        scoretext.text = "Best Score: " + tmp.ToString();
     }
 }

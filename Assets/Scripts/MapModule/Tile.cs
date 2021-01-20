@@ -12,6 +12,7 @@ public class Tile
         this.Y = y;
         TerrainType = TERRAIN_TYPE.GRASS;
         canPlaceObjects = true;
+        objectPlaced = false;
         tileHeat = new TileHeat();
         //objects = new List<BUILDING_TYPE>();
     }
@@ -22,6 +23,7 @@ public class Tile
     public TileHeat tileHeat;
 
     public bool canPlaceObjects;
+    public bool objectPlaced;
     //list of builidingObjects on tile
     // public List<BUILDING_TYPE> objects;
 

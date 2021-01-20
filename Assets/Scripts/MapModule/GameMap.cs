@@ -131,4 +131,12 @@ public class GameMap : MonoBehaviour
             tile.UpdateTerrain();
         }
     }
+
+    public void SwitchHeatView()
+    {
+        foreach (var tile in tiles)
+        {
+            tile.SwitchView();
+        }
+    }
 }

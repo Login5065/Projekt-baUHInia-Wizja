@@ -17,10 +17,10 @@ public class MapHeat : MonoBehaviour
         else
         {
             heatData.globalTemperature = 20.0f;
-            heatData.heatDecayRadius = 1.0f;
+            heatData.heatDecayRadius = 2.0f;
             heatData.heatScore = 20.0f;
-            heatData.tempMin = 15.0d;
-            heatData.tempMax = 60.0d;
+            heatData.tempMin = 10.0d;
+            heatData.tempMax = 40.0d;
         }
 
     }
@@ -41,7 +41,6 @@ public class MapHeat : MonoBehaviour
         List<GameObject> onlyBuildings = PrepareList();
         heatData.heatScore = 0.0f;
         int count = 0;
-        Debug.Log("Preparation for couting heat!");
         foreach (var tile in tiles) 
         {
             float addTemperature = 0.0f;
@@ -49,12 +48,11 @@ public class MapHeat : MonoBehaviour
             tile.tileHeat.localTemperature = heatData.globalTemperature + addTemperature;
             tile.tileHeat.localTemperature = ControlTemperature(tile.tileHeat.localTemperature);
             CalculateScore(tile.tileHeat.localTemperature);
-            Debug.Log("For tile, X: " + tile.X + ", Y: " + tile.Y + ", tileTemperature: " + tile.tileHeat.localTemperature);
             count++;
         }
         Debug.Log(count);
         CalculateScore(count);
-        Debug.Log("Counted all heat, average temperature: " + heatData.heatScore);
+        Debug.Log("Counted heat for all tiles, average temperature: " + heatData.heatScore);
         Debug.Log("Actual score:" + ReturnHeatScore());
     }
 

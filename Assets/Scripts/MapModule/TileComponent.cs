@@ -23,6 +23,7 @@ public class TileComponent : MonoBehaviour
     {
         displayTemperature = true;
         _propBlock = new MaterialPropertyBlock();
+        _originalPropBlock = new MaterialPropertyBlock();
         meshRendererr.GetPropertyBlock(_propBlock);
         meshRendererr.GetPropertyBlock(_originalPropBlock);
     }

@@ -13,6 +13,8 @@ public class MapHeat : MonoBehaviour
         heatData.globalTemperature = 20.0f;
         heatData.heatDecayRadius = 1.0f;
         heatData.heatScore = 20.0f;
+        heatData.tempMin = 15.0d;
+        heatData.tempMax = 60.0d;
     }
 
     public void Awake()
@@ -37,12 +39,15 @@ public class MapHeat : MonoBehaviour
             float addTemperature = 0.0f;
             addTemperature = (float) ComputeTemperature(onlyBuildings, tile.TerrainType, tile.X, tile.Y);
             tile.tileHeat.localTemperature = heatData.globalTemperature + addTemperature;
+            tile.tileHeat.localTemperature = ControlTemperature(tile.tileHeat.localTemperature);
             CalculateScore(tile.tileHeat.localTemperature);
             Debug.Log("For tile, X: " + tile.X + ", Y: " + tile.Y + ", tileTemperature: " + tile.tileHeat.localTemperature);
             count++;
         }
-        Debug.Log("Counted all heat, average temperature: " + heatData.heatScore);
+        Debug.Log(count);
         CalculateScore(count);
+        Debug.Log("Counted all heat, average temperature: " + heatData.heatScore);
+        Debug.Log("Actual score:" + ReturnHeatScore());
     }
 
     private void CalculateScore(double temperature)
@@ -58,11 +63,11 @@ public class MapHeat : MonoBehaviour
     public int ReturnHeatScore()
     {
         int coolingBonus = 0;
-        while(heatData.heatScore < 20.0d)
+        while(heatData.heatScore < heatData.globalTemperature)
         {
-            coolingBonus = 100 * (int) (20.0d - heatData.heatScore);
+            coolingBonus = 100 * (int) (heatData.globalTemperature - heatData.heatScore);
         }
-        return coolingBonus + (int) (20000.0d / (heatData.heatScore < 20.0d ? 20.0d : heatData.heatScore) );
+        return coolingBonus + (int) (20000.0d / (heatData.heatScore < heatData.globalTemperature ? heatData.globalTemperature : heatData.heatScore) );
     }
 
     // Do not use nor uncomment
@@ -104,17 +109,17 @@ public class MapHeat : MonoBehaviour
         {
             case Tile.TERRAIN_TYPE.WATER: 
             {
-                return temperature * 0.6; 
+                return (temperature > 0 ? temperature * 0.6 : temperature * 0.4); 
                 break;
             }
             case Tile.TERRAIN_TYPE.GRASS: 
             {
-                return temperature * 0.7;
+                return (temperature > 0 ? temperature * 0.7 : temperature * 0.5);
                 break;
             }
             case Tile.TERRAIN_TYPE.EARTH: 
             {
-                return temperature * 0.95;
+                return (temperature > 0 ? temperature * 0.9 : temperature * 0.8);
                 break;
             }   
             default:
@@ -151,6 +156,19 @@ public class MapHeat : MonoBehaviour
         return buildingList;
 
 
+    }
+
+    private float ControlTemperature(float temp)
+    {
+        if(temp < heatData.tempMin)
+        {
+            temp = (float) heatData.tempMin;
+        }
+        else if(temp > heatData.tempMax)
+        {
+            temp = (float) heatData.tempMax;
+        }
+        return temp;
     }
 
 }

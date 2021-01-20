@@ -170,6 +170,7 @@ public class BuildingPrefabData
         FinanceUpdate();
         BuildingListCount();
         BuildingInstantiate();
+        MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
         FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
 
         prefab1.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);

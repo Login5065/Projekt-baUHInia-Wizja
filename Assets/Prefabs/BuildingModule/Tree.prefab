@@ -159,7 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   price: 5
   limits: 5
-  heat: 0
+  heat: -2
 --- !u!65 &5658982843293792245
 BoxCollider:
   m_ObjectHideFlags: 0

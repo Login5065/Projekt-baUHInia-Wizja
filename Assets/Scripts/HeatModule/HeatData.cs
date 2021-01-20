@@ -8,4 +8,6 @@ public class HeatData
     public float globalTemperature;
     public float heatDecayRadius;
     public double heatScore;
+    public double tempMin;
+    public double tempMax;
 }

@@ -57,16 +57,7 @@ public class MapManager : MonoBehaviour
 
     private void Start()
     {
-        currentGameData = null;
-        if (!UserInfo.Instance.isAdmin)
-        {
-            adminPanel.SetActive(false);
-        }
-        else
-        {
-            adminPanel.SetActive(true);
 
-        } 
     }
 
     public void CreateNewMap()

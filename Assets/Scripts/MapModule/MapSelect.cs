@@ -28,6 +28,17 @@ public class MapSelect : MonoBehaviour
             UpdateMapManagerReferences();
 
         }
+
+        MapManager.Instance.currentGameData = null;
+        if (!UserInfo.Instance.isAdmin)
+        {
+            adminPanel.SetActive(false);
+        }
+        else
+        {
+            adminPanel.SetActive(true);
+
+        }
     }
 
     public void UpdateMapManagerReferences()

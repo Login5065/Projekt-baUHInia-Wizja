@@ -14,6 +14,7 @@ public class MapEditor : MonoBehaviour
     public InputField mapNameInput;
     public InputField rowsNumberInput;
     public InputField columnNumberInput;
+    public InputField tempGlobal;
     public InputField tempMinInput;
     public InputField tempMaxInput;
 
@@ -36,6 +37,8 @@ public class MapEditor : MonoBehaviour
         tempMinInput.characterValidation = InputField.CharacterValidation.Integer;
         tempMaxInput.contentType = InputField.ContentType.IntegerNumber;
         tempMaxInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempGlobal.contentType = InputField.ContentType.IntegerNumber;
+        tempGlobal.characterValidation = InputField.CharacterValidation.Integer;
 
     }
 
@@ -122,8 +125,9 @@ public class MapEditor : MonoBehaviour
         if (tempMinInput.text == "" || tempMaxInput.text == "")
             return;
 
-        float tempMin = int.Parse(tempMinInput.text);
-        float tempMax = int.Parse(tempMaxInput.text);
+        float tempMin = float.Parse(tempMinInput.text);
+        float tempMax = float.Parse(tempMaxInput.text);
+        float global = float.Parse(tempGlobal.text);
 
         if (tempMin > tempMax)
         {
@@ -132,8 +136,12 @@ public class MapEditor : MonoBehaviour
             tempMin = tmp;
         }
 
+        if (global > tempMax)
+            global = tempMax;
+
         MapHeat.Instance.heatData.tempMin = tempMin;
         MapHeat.Instance.heatData.tempMax = tempMax;
+        MapHeat.Instance.heatData.tempMax = global;
     }
 
     public void LoadMap()

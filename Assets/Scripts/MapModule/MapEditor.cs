@@ -113,7 +113,7 @@ public class MapEditor : MonoBehaviour
         map.gameData.allNeededData.mapData.budget = FindObjectOfType<Budget>().getCurrentAmount();
         map.gameData.allNeededData.buildings = FindObjectOfType<BuildingManagment>().getBuildingData();
         map.gameData.allNeededData.bestScore = FindObjectOfType<Score>().bestScore;
-
+        map.gameData.allNeededData.heatData = MapHeat.Instance.heatData;
 
     }
 

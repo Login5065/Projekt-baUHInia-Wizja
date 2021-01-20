@@ -15,6 +15,10 @@ public class GameData
 
     public AllNeededData allNeededData;
 
+    public int getBestScore()
+    {
+        return allNeededData.bestScore;
+    }
 
     public void AddMapData(MapData _mapData)
     {
@@ -50,11 +54,13 @@ public struct AllNeededData
         mapData = _mapData;
         buildings = _buildings;
         heatData = _heatData;
+        bestScore = 0;
     }
 
     public MapData mapData;
     public Buildings buildings;
     public HeatData heatData;
+    public int bestScore;
     //public BuildingData buildingData;
     //public MapHeatData mapHeatData;
 

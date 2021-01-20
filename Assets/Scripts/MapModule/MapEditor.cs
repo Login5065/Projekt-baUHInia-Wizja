@@ -106,6 +106,7 @@ public class MapEditor : MonoBehaviour
         map.gameData.author = UserInfo.Instance.login;
         map.gameData.allNeededData.mapData.budget = FindObjectOfType<Budget>().getCurrentAmount();
         map.gameData.allNeededData.buildings = FindObjectOfType<BuildingManagment>().getBuildingData();
+        map.gameData.allNeededData.bestScore = FindObjectOfType<Score>().bestScore;
 
 
     }

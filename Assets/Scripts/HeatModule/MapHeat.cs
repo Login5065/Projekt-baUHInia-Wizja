@@ -13,8 +13,8 @@ public class MapHeat : MonoBehaviour
         heatData.globalTemperature = 20.0f;
         heatData.heatDecayRadius = 1.0f;
         heatData.heatScore = 20.0f;
-        heatData.tempMin = 15.0d;
-        heatData.tempMax = 60.0d;
+        heatData.tempMin = 10.0d;
+        heatData.tempMax = 40.0d;
     }
 
     public void Awake()

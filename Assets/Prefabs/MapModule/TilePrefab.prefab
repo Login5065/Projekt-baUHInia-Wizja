@@ -143,7 +143,6 @@ MonoBehaviour:
     X: 0
     Y: 0
     TerrainType: 0
-    tileHeat: {fileID: 0}
     canPlaceObjects: 0
     objectPlaced: 0
   map: {fileID: 0}
@@ -151,7 +150,7 @@ MonoBehaviour:
   matWater: {fileID: 2100000, guid: a8b74c51255544547b6856f56004cd95, type: 2}
   matGrass: {fileID: 2100000, guid: 60ed6fa36d7fbba46bd70ea68e06d32d, type: 2}
   matEarth: {fileID: 2100000, guid: 1da1619f6b4fbeb49b08f9bf3a9dfa7e, type: 2}
-  matTemperature: {fileID: 2100000, guid: 1376dcfcce5f68a42b200016549efba7, type: 2}
+  matTemperature: {fileID: 2100000, guid: 77611a7946b97d04a8b11501c2fa8d6d, type: 2}
   gradient:
     serializedVersion: 2
     key0: {r: 0.23113209, g: 0.5728511, b: 1, a: 1}
@@ -181,6 +180,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 3
     m_NumAlphaKeys: 3
+  displayTemperature: 1
 --- !u!65 &116456978529766577
 BoxCollider:
   m_ObjectHideFlags: 0

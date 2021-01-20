@@ -82,9 +82,15 @@ public class BuildingPrefabData
     public GameObject prefab3;
     public GameObject prefab4;
     public GameObject prefab5;
+    public GameObject prefab1r;
+    public GameObject prefab1g;
+    public GameObject prefab2r;
+    public GameObject prefab2g;
     public GameObject[] prefabs = new GameObject[5];
     int prefabCount = 0;
     public GameObject FinanceObject;
+    private GameObject prefab_1;
+    private GameObject prefab_2;
 
     string json = null;
 
@@ -165,6 +171,17 @@ public class BuildingPrefabData
     }
     public void Awake()
     {
+        prefab_2.GetComponent<Transform>().localRotation = prefab2.GetComponent<Transform>().localRotation;
+        prefab_2.GetComponent<BuildingPosition>().width = prefab2.GetComponent<BuildingPosition>().width;
+        prefab_2.GetComponent<BuildingPosition>().length = prefab2.GetComponent<BuildingPosition>().length;
+        prefab_2.GetComponent<BuildingPosition>().x = prefab2.GetComponent<BuildingPosition>().x;
+        prefab_2.GetComponent<BuildingPosition>().z = prefab2.GetComponent<BuildingPosition>().z;
+        prefab_1.GetComponent<Transform>().localRotation = prefab1.GetComponent<Transform>().localRotation;
+        prefab_1.GetComponent<BuildingPosition>().width = prefab1.GetComponent<BuildingPosition>().width;
+        prefab_1.GetComponent<BuildingPosition>().length = prefab1.GetComponent<BuildingPosition>().length;
+        prefab_1.GetComponent<BuildingPosition>().x = prefab1.GetComponent<BuildingPosition>().x;
+        prefab_1.GetComponent<BuildingPosition>().z = prefab1.GetComponent<BuildingPosition>().z;
+
         getLista();
         getTab();
         FinanceUpdate();
@@ -173,11 +190,20 @@ public class BuildingPrefabData
         MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
         FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
 
-        prefab1.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
-        prefab2.GetComponent<Transform>().localRotation = new Quaternion(0, -90, 0, 1);
+        prefab1.GetComponent<Transform>().localRotation = prefab_1.GetComponent<Transform>().localRotation;
+        prefab2.GetComponent<Transform>().localRotation = prefab_2.GetComponent<Transform>().localRotation;
         prefab3.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
         prefab4.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
         prefab5.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
+        prefab1.GetComponent<BuildingPosition>().z = prefab_1.GetComponent<BuildingPosition>().z;
+        prefab1.GetComponent<BuildingPosition>().x = prefab_1.GetComponent<BuildingPosition>().x;
+        prefab2.GetComponent<BuildingPosition>().z = prefab_2.GetComponent<BuildingPosition>().z;
+        prefab2.GetComponent<BuildingPosition>().x = prefab_2.GetComponent<BuildingPosition>().x;
+        prefab2.GetComponent<BuildingPosition>().width = prefab_2.GetComponent<BuildingPosition>().width;
+        prefab2.GetComponent<BuildingPosition>().length = prefab_2.GetComponent<BuildingPosition>().length;
+        prefab1.GetComponent<BuildingPosition>().width = prefab_1.GetComponent<BuildingPosition>().width;
+        prefab1.GetComponent<BuildingPosition>().length = prefab_1.GetComponent<BuildingPosition>().length;
+
 
     }
     private void BuildingListCount()

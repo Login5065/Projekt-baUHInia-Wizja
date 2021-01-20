@@ -14,6 +14,8 @@ public class MapEditor : MonoBehaviour
     public InputField mapNameInput;
     public InputField rowsNumberInput;
     public InputField columnNumberInput;
+    public InputField tempMinInput;
+    public InputField tempMaxInput;
 
     public Tile.TERRAIN_TYPE selectedTerrainType;
     private TileComponent tileHit;
@@ -30,6 +32,10 @@ public class MapEditor : MonoBehaviour
         rowsNumberInput.characterValidation = InputField.CharacterValidation.Integer;
         columnNumberInput.contentType = InputField.ContentType.IntegerNumber;
         columnNumberInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempMinInput.contentType = InputField.ContentType.IntegerNumber;
+        tempMinInput.characterValidation = InputField.CharacterValidation.Integer;
+        tempMaxInput.contentType = InputField.ContentType.IntegerNumber;
+        tempMaxInput.characterValidation = InputField.CharacterValidation.Integer;
 
     }
 
@@ -109,6 +115,25 @@ public class MapEditor : MonoBehaviour
         map.gameData.allNeededData.bestScore = FindObjectOfType<Score>().bestScore;
 
 
+    }
+
+    public void ApplyTempMinMax()
+    {
+        if (tempMinInput.text == "" || tempMaxInput.text == "")
+            return;
+
+        float tempMin = int.Parse(tempMinInput.text);
+        float tempMax = int.Parse(tempMaxInput.text);
+
+        if (tempMin > tempMax)
+        {
+            float tmp = tempMax;
+            tempMax = tempMin;
+            tempMin = tmp;
+        }
+
+        MapHeat.Instance.heatData.tempMin = tempMin;
+        MapHeat.Instance.heatData.tempMax = tempMax;
     }
 
     public void LoadMap()

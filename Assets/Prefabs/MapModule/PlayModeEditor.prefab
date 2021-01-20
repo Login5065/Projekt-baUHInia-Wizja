@@ -761,7 +761,6 @@ GameObject:
   - component: {fileID: 7694299655660804724}
   - component: {fileID: 1304767163529961348}
   - component: {fileID: 6339488090446664549}
-  - component: {fileID: 4719993744740372166}
   m_Layer: 0
   m_Name: TempGlobalIF
   m_TagString: Untagged
@@ -890,20 +889,6 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
---- !u!114 &4719993744740372166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 300466810661742526}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Type number of columns for newly generated map
 --- !u!1 &324012953080607359
 GameObject:
   m_ObjectHideFlags: 0
@@ -3675,7 +3660,6 @@ GameObject:
   - component: {fileID: 4927216551312794082}
   - component: {fileID: 1065795440183868782}
   - component: {fileID: 1453054020598663224}
-  - component: {fileID: 463074554201871222}
   m_Layer: 0
   m_Name: GenerateMap
   m_TagString: Untagged
@@ -3794,20 +3778,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &463074554201871222
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3012603711533728939}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Generates new map based on given values
 --- !u!1 &3108740840910521302
 GameObject:
   m_ObjectHideFlags: 0
@@ -5003,7 +4973,6 @@ GameObject:
   - component: {fileID: 4113269666325025620}
   - component: {fileID: 4026276272542804630}
   - component: {fileID: 278843376824053326}
-  - component: {fileID: 8514733563104736117}
   m_Layer: 0
   m_Name: SaveMapServer
   m_TagString: Untagged
@@ -5122,20 +5091,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &8514733563104736117
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4179273146507752418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Send current map to server
 --- !u!1 &4191273911995699197
 GameObject:
   m_ObjectHideFlags: 0
@@ -6031,7 +5986,6 @@ GameObject:
   - component: {fileID: 496615609810068149}
   - component: {fileID: 2381008464403852697}
   - component: {fileID: 7752770112319908250}
-  - component: {fileID: 2519735795545256953}
   m_Layer: 0
   m_Name: RowNumberInputField
   m_TagString: Untagged
@@ -6160,20 +6114,6 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
---- !u!114 &2519735795545256953
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4671171143233627528}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Type number of rows for newly generated map
 --- !u!1 &4831860639258079792
 GameObject:
   m_ObjectHideFlags: 0
@@ -7250,7 +7190,6 @@ GameObject:
   - component: {fileID: 2028785222904303504}
   - component: {fileID: 6256933152395281109}
   - component: {fileID: 751980438128453035}
-  - component: {fileID: 1308153647249420852}
   m_Layer: 0
   m_Name: TempMinIF
   m_TagString: Untagged
@@ -7379,20 +7318,6 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
---- !u!114 &1308153647249420852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6401044564717304758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Type number of rows for newly generated map
 --- !u!1 &6441910715330918416
 GameObject:
   m_ObjectHideFlags: 0
@@ -8641,7 +8566,6 @@ GameObject:
   - component: {fileID: 1861830167977130358}
   - component: {fileID: 3824426829379198549}
   - component: {fileID: 7422082020316506009}
-  - component: {fileID: 1735663876256009242}
   m_Layer: 0
   m_Name: ColumnNumberInputField
   m_TagString: Untagged
@@ -8770,20 +8694,6 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
---- !u!114 &1735663876256009242
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8204715969425865418}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Type number of columns for newly generated map
 --- !u!1 &8306790460527454719
 GameObject:
   m_ObjectHideFlags: 0
@@ -9358,7 +9268,6 @@ GameObject:
   - component: {fileID: 2674548005936684300}
   - component: {fileID: 1633729374157351570}
   - component: {fileID: 8586981408680761420}
-  - component: {fileID: 1942912176246469666}
   m_Layer: 0
   m_Name: TempMaxIF
   m_TagString: Untagged
@@ -9487,17 +9396,3 @@ MonoBehaviour:
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
---- !u!114 &1942912176246469666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9077291796910084021}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5037d80187162d44b8348313ad8d1680, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  header: 
-  content: Type number of columns for newly generated map

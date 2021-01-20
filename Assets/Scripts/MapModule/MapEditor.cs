@@ -139,6 +139,9 @@ public class MapEditor : MonoBehaviour
         if (global > tempMax)
             global = tempMax;
 
+        if (global < tempMin)
+            global = tempMin;
+
         MapHeat.Instance.heatData.tempMin = tempMin;
         MapHeat.Instance.heatData.tempMax = tempMax;
         MapHeat.Instance.heatData.tempMax = global;

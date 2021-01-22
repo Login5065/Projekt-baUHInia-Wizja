@@ -9,6 +9,7 @@ public class BuildingPlacement : MonoBehaviour
     public GameObject redBuilding;
     public GameObject greenBuilding;
     private GameObject obiekt;
+    public GameObject prefab1, prefab2, prefab3, prefab4, prefab5;
 
     private TileComponent tileHit;
     private BoxCollider BuildingHit;
@@ -35,6 +36,10 @@ public class BuildingPlacement : MonoBehaviour
             treeAmount = FindObjectOfType<BudgetMenager>().getTree();
             fountainAmount = FindObjectOfType<BudgetMenager>().getFou();
         }
+    }
+    private void Awake()
+    {
+        FixPrefab();
     }
 
     // Update is called once per frame
@@ -245,6 +250,21 @@ public class BuildingPlacement : MonoBehaviour
             krok++;
             if (krok == 5) krok = 1;
         }
+    }
+
+    public void FixPrefab()
+    {
+        prefab1.GetComponent<BuildingPosition>().z = 0;
+        prefab1.GetComponent<BuildingPosition>().x = 1;
+        prefab2.GetComponent<BuildingPosition>().width = 4;
+        prefab2.GetComponent<BuildingPosition>().length = 7;
+        prefab2.GetComponent<Transform>().rotation = Quaternion.Euler(0, -90, 0);
+        prefab2.GetComponent<BuildingPosition>().z = -2;
+        prefab2.GetComponent<BuildingPosition>().x = 0;
+        prefab1.GetComponent<BuildingPosition>().width = 7;
+        prefab1.GetComponent<BuildingPosition>().length = 12;
+        prefab1.GetComponent<Transform>().rotation = Quaternion.identity;
+        prefab3.GetComponent<Transform>().rotation = Quaternion.identity;
     }
     void BuildingRotationStep(int i)
     {

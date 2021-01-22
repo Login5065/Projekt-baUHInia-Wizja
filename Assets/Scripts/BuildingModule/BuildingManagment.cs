@@ -82,15 +82,12 @@ public class BuildingPrefabData
     public GameObject prefab3;
     public GameObject prefab4;
     public GameObject prefab5;
-    public GameObject prefab1r;
-    public GameObject prefab1g;
-    public GameObject prefab2r;
-    public GameObject prefab2g;
     public GameObject[] prefabs = new GameObject[5];
     int prefabCount = 0;
     public GameObject FinanceObject;
     private GameObject prefab_1;
     private GameObject prefab_2;
+    private GameObject prefabTemp;
 
     string json = null;
 
@@ -159,28 +156,20 @@ public class BuildingPrefabData
 
     public void dodajDane(int i, GameObject prefab)
     {
-        prefab.GetComponent<Transform>().localPosition = lista[i].position;
-        prefab.GetComponent<Transform>().localRotation = lista[i].rotation;
-        prefab.GetComponent<Transform>().localScale = lista[i].scale;
-        prefab.GetComponent<BuildingPosition>().x = lista[i].x;
-        prefab.GetComponent<BuildingPosition>().z = lista[i].z;
-        prefab.GetComponent<BuildingPosition>().width = lista[i].width;
-        prefab.GetComponent<BuildingPosition>().length = lista[i].length;
-        prefab.GetComponent<BuildingInfo>().price = lista[i].price;
-        prefab.GetComponent<BuildingInfo>().limits = lista[i].limits;
+        prefabTemp = prefab;
+        prefabTemp.GetComponent<Transform>().localPosition = lista[i].position;
+        prefabTemp.GetComponent<Transform>().localRotation = lista[i].rotation;
+        prefabTemp.GetComponent<Transform>().localScale = lista[i].scale;
+        prefabTemp.GetComponent<BuildingPosition>().x = lista[i].x;
+        prefabTemp.GetComponent<BuildingPosition>().z = lista[i].z;
+        prefabTemp.GetComponent<BuildingPosition>().width = lista[i].width;
+        prefabTemp.GetComponent<BuildingPosition>().length = lista[i].length;
+        prefabTemp.GetComponent<BuildingInfo>().price = lista[i].price;
+        prefabTemp.GetComponent<BuildingInfo>().limits = lista[i].limits;
+        GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().Add(prefabTemp);
     }
     public void Awake()
     {
-        prefab_2.GetComponent<Transform>().localRotation = prefab2.GetComponent<Transform>().localRotation;
-        prefab_2.GetComponent<BuildingPosition>().width = prefab2.GetComponent<BuildingPosition>().width;
-        prefab_2.GetComponent<BuildingPosition>().length = prefab2.GetComponent<BuildingPosition>().length;
-        prefab_2.GetComponent<BuildingPosition>().x = prefab2.GetComponent<BuildingPosition>().x;
-        prefab_2.GetComponent<BuildingPosition>().z = prefab2.GetComponent<BuildingPosition>().z;
-        prefab_1.GetComponent<Transform>().localRotation = prefab1.GetComponent<Transform>().localRotation;
-        prefab_1.GetComponent<BuildingPosition>().width = prefab1.GetComponent<BuildingPosition>().width;
-        prefab_1.GetComponent<BuildingPosition>().length = prefab1.GetComponent<BuildingPosition>().length;
-        prefab_1.GetComponent<BuildingPosition>().x = prefab1.GetComponent<BuildingPosition>().x;
-        prefab_1.GetComponent<BuildingPosition>().z = prefab1.GetComponent<BuildingPosition>().z;
 
         getLista();
         getTab();
@@ -189,20 +178,6 @@ public class BuildingPrefabData
         BuildingInstantiate();
         MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
         FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
-
-        prefab1.GetComponent<Transform>().localRotation = prefab_1.GetComponent<Transform>().localRotation;
-        prefab2.GetComponent<Transform>().localRotation = prefab_2.GetComponent<Transform>().localRotation;
-        prefab3.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
-        prefab4.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
-        prefab5.GetComponent<Transform>().localRotation = new Quaternion(0, 0, 0, 1);
-        prefab1.GetComponent<BuildingPosition>().z = prefab_1.GetComponent<BuildingPosition>().z;
-        prefab1.GetComponent<BuildingPosition>().x = prefab_1.GetComponent<BuildingPosition>().x;
-        prefab2.GetComponent<BuildingPosition>().z = prefab_2.GetComponent<BuildingPosition>().z;
-        prefab2.GetComponent<BuildingPosition>().x = prefab_2.GetComponent<BuildingPosition>().x;
-        prefab2.GetComponent<BuildingPosition>().width = prefab_2.GetComponent<BuildingPosition>().width;
-        prefab2.GetComponent<BuildingPosition>().length = prefab_2.GetComponent<BuildingPosition>().length;
-        prefab1.GetComponent<BuildingPosition>().width = prefab_1.GetComponent<BuildingPosition>().width;
-        prefab1.GetComponent<BuildingPosition>().length = prefab_1.GetComponent<BuildingPosition>().length;
 
 
     }
@@ -220,31 +195,31 @@ public class BuildingPrefabData
             if(lista[i].tag == "budynek01")
             {
                 dodajDane(i, prefab1);
-                Instantiate(prefab1);
+                Instantiate(prefabTemp);
                 FinanceObject.GetComponent<PrefabInfo>().budAmount++;
             }
             if (lista[i].tag == "budynek02")
             {
                 dodajDane(i, prefab2);
-                Instantiate(prefab2);
+                Instantiate(prefabTemp);
                 FinanceObject.GetComponent<PrefabInfo>().nisbudAmount++;
             }
             if (lista[i].tag == "budynek03")
             {
                 dodajDane(i, prefab3);
-                Instantiate(prefab3);
+                Instantiate(prefabTemp);
                 FinanceObject.GetComponent<PrefabInfo>().benchAmount++;
             }
             if (lista[i].tag == "budynek04")
             {
                 dodajDane(i, prefab4);
-                Instantiate(prefab4);
+                Instantiate(prefabTemp);
                 FinanceObject.GetComponent<PrefabInfo>().treeAmount++;
             }
             if (lista[i].tag == "budynek05")
             {
                 dodajDane(i, prefab5);
-                Instantiate(prefab5);
+                Instantiate(prefabTemp);
                 FinanceObject.GetComponent<PrefabInfo>().fountainAmount++;
             }            
         }

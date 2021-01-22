@@ -2414,10 +2414,6 @@ MonoBehaviour:
   prefab3: {fileID: 1307031912822190, guid: 97cf5b9aa73461e4b92a7dfa890102ef, type: 3}
   prefab4: {fileID: 1276862051916332, guid: bdb992c309f2732489d265190be1d119, type: 3}
   prefab5: {fileID: 178508, guid: 15f572b1b81f4f94db3249d863718874, type: 3}
-  prefab1r: {fileID: 1199332134306268, guid: aa37d879620f339439e90fc68a81397a, type: 3}
-  prefab1g: {fileID: 1199332134306268, guid: 39beb8e9446a50b458c8afb22954fa5b, type: 3}
-  prefab2r: {fileID: 1653091941771604, guid: 4f72d7a958c6f9a4e8aec2d2f499beb5, type: 3}
-  prefab2g: {fileID: 1653091941771604, guid: aefdaa5f0e48df84e8ebf2000eb2da26, type: 3}
   prefabs:
   - {fileID: 1199332134306268, guid: 71edf7768c58f1f4492b17ced72ee74e, type: 3}
   - {fileID: 1653091941771604, guid: 439d1f96bc3b9534588ea82e532f2075, type: 3}
@@ -3463,6 +3459,11 @@ MonoBehaviour:
   currentBuilding: {fileID: 0}
   redBuilding: {fileID: 0}
   greenBuilding: {fileID: 0}
+  prefab1: {fileID: 1199332134306268, guid: 71edf7768c58f1f4492b17ced72ee74e, type: 3}
+  prefab2: {fileID: 1653091941771604, guid: 439d1f96bc3b9534588ea82e532f2075, type: 3}
+  prefab3: {fileID: 1307031912822190, guid: 97cf5b9aa73461e4b92a7dfa890102ef, type: 3}
+  prefab4: {fileID: 1276862051916332, guid: bdb992c309f2732489d265190be1d119, type: 3}
+  prefab5: {fileID: 178508, guid: 15f572b1b81f4f94db3249d863718874, type: 3}
 --- !u!114 &963194230
 MonoBehaviour:
   m_ObjectHideFlags: 0

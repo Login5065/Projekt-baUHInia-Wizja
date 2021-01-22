@@ -265,7 +265,21 @@ public class BuildingPlacement : MonoBehaviour
         prefab1.GetComponent<BuildingPosition>().length = 12;
         prefab1.GetComponent<Transform>().rotation = Quaternion.identity;
         prefab3.GetComponent<Transform>().rotation = Quaternion.identity;
+        setColliderAdmin(prefab1);
+        setColliderAdmin(prefab2);
+        setColliderAdmin(prefab3);
+        setColliderAdmin(prefab4);
+        setColliderAdmin(prefab5);
+
     }
+    void setColliderAdmin(GameObject prefabTemp)
+    {
+        foreach (Collider c in prefabTemp.GetComponents<Collider>())
+        {
+            c.enabled = true; ;
+        }
+    }
+
     void BuildingRotationStep(int i)
     {
         int temp = currentBuilding.GetComponent<BuildingPosition>().width;

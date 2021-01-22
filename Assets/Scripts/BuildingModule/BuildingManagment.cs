@@ -167,6 +167,20 @@ public class BuildingPrefabData
         prefabTemp.GetComponent<BuildingInfo>().price = lista[i].price;
         prefabTemp.GetComponent<BuildingInfo>().limits = lista[i].limits;
         GameObject.Find("budynki/BuildingJson").GetComponent<BuildingManagment>().Add(prefabTemp);
+        if(!GameObject.Find("UserInfo").GetComponent<UserInfo>().isAdmin)
+        {
+            foreach(Collider c in prefabTemp.GetComponents<Collider>())
+            {
+                c.enabled = false;
+            }
+        }
+        else
+        {
+            foreach (Collider c in prefabTemp.GetComponents<Collider>())
+            {
+                c.enabled = true;
+            }
+        }
     }
     public void Awake()
     {

@@ -191,7 +191,6 @@ public class BuildingPrefabData
         BuildingListCount();
         BuildingInstantiate();
         MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
-        FindObjectOfType<BudgetMenager>().setBuildingsPriceLoad();
 
 
     }

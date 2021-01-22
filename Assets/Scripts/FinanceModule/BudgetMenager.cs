@@ -43,6 +43,17 @@ public class BudgetMenager : MonoBehaviour
     private int ftlimits;
     private int Budget;
 
+    public Text BPriText;
+    public Text BLimText;
+    public Text nBPriText;
+    public Text nBLimText;
+    public Text BenPriText;
+    public Text BenLimText;
+    public Text TrePriText;
+    public Text TreLimText;
+    public Text FoPriText;
+    public Text FoLimText;
+
     // Start is called before the first frame update
     private void Awake()
     {
@@ -68,6 +79,8 @@ public class BudgetMenager : MonoBehaviour
         fountainLimitsInput.characterValidation = InputField.CharacterValidation.Integer;
         BudgetInput.contentType = InputField.ContentType.IntegerNumber;
         BudgetInput.characterValidation = InputField.CharacterValidation.Integer;
+        setBuildingsPriceLoad();
+        setInfoTextLoad();
     }
 
     void Start()
@@ -105,12 +118,14 @@ public class BudgetMenager : MonoBehaviour
             confirmButton.gameObject.SetActive(true);
             budgetInputInfo.gameObject.SetActive(true);
         }
+        setInfoText();
     }
 
     // Update is called once per frame
     void Update()
     {
         setBudgetText();
+        setInfoText();
         FindObjectOfType<Score>().isNewBestScore();
         FindObjectOfType<Score>().setScoreText();
     }
@@ -192,16 +207,17 @@ public class BudgetMenager : MonoBehaviour
 
     public void setBuildingsPriceLoad()
     {
-        bdprice = budynki.GetComponent<PrefabInfo>().price[0];
+        bdprice = GameObject.Find("budynki").GetComponent<PrefabInfo>().price[0];
         nisbdprice = budynki.GetComponent<PrefabInfo>().price[1];
-        bdlimits = budynki.GetComponent<PrefabInfo>().limits[0];
+        bdlimits = GameObject.Find("budynki").GetComponent<PrefabInfo>().limits[0];
         nisbdlimits = budynki.GetComponent<PrefabInfo>().limits[1];
         benprice = budynki.GetComponent<PrefabInfo>().price[2];
         benlimits = budynki.GetComponent<PrefabInfo>().limits[2];
         treeprice = budynki.GetComponent<PrefabInfo>().price[3];
         treelimits = budynki.GetComponent<PrefabInfo>().limits[3];
-        ftprice = budynki.GetComponent<PrefabInfo>().price[4];
-        ftlimits = budynki.GetComponent<PrefabInfo>().limits[4];
+        ftprice = GameObject.Find("budynki").GetComponent<PrefabInfo>().price[4];
+        ftlimits = GameObject.Find("budynki").GetComponent<PrefabInfo>().limits[4];
+        //Debug.Log(GameObject.Find("budynki").GetComponent<PrefabInfo>().price[4]);
         budynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(bdprice, bdlimits);
         niskibudynek.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(nisbdprice, nisbdlimits);
         bench.gameObject.GetComponent<BuildingInfo>().changePropertyBudget(benprice, benlimits);
@@ -243,6 +259,44 @@ public class BudgetMenager : MonoBehaviour
     {
         int tmp = budget.getCurrentAmount();
         budgettext.text = "Current budget: " + tmp.ToString();
+    }
+
+    public void setInfoText()
+    {
+        BPriText.text = "Price: " + bdprice.ToString();
+        BLimText.text = "Limits: " + bdlimits.ToString();
+        nBPriText.text = "Price: " + nisbdprice.ToString();
+        nBLimText.text = "Limits: " + nisbdlimits.ToString();
+        BenPriText.text = "Price: " + benprice.ToString();
+        BenLimText.text = "Limits: " + benlimits.ToString();
+        TrePriText.text = "Price: " + treeprice.ToString();
+        TreLimText.text = "Limits: " + treelimits.ToString();
+        FoPriText.text = "Price: " + ftprice.ToString();
+        FoLimText.text = "Limits: " + ftlimits.ToString();
+    }
+
+    public void setInfoTextLoad()
+    {
+        bdprice = GameObject.Find("budynki").GetComponent<PrefabInfo>().price[0];
+        nisbdprice = budynki.GetComponent<PrefabInfo>().price[1];
+        bdlimits = GameObject.Find("budynki").GetComponent<PrefabInfo>().limits[0];
+        nisbdlimits = budynki.GetComponent<PrefabInfo>().limits[1];
+        benprice = budynki.GetComponent<PrefabInfo>().price[2];
+        benlimits = budynki.GetComponent<PrefabInfo>().limits[2];
+        treeprice = budynki.GetComponent<PrefabInfo>().price[3];
+        treelimits = budynki.GetComponent<PrefabInfo>().limits[3];
+        ftprice = GameObject.Find("budynki").GetComponent<PrefabInfo>().price[4];
+        ftlimits = GameObject.Find("budynki").GetComponent<PrefabInfo>().limits[4];
+        BPriText.text = "Price: " + bdprice.ToString();
+        BLimText.text = "Limits: " + bdlimits.ToString();
+        nBPriText.text = "Price: " + nisbdprice.ToString();
+        nBLimText.text = "Limits: " + nisbdlimits.ToString();
+        BenPriText.text = "Price: " + benprice.ToString();
+        BenLimText.text = "Limits: " + benlimits.ToString();
+        TrePriText.text = "Price: " + treeprice.ToString();
+        TreLimText.text = "Limits: " + treelimits.ToString();
+        FoPriText.text = "Price: " + ftprice.ToString();
+        FoLimText.text = "Limits: " + ftlimits.ToString();
     }
 
     public int getBudget()

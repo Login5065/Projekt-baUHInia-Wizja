@@ -9,6 +9,8 @@ using UnityEngine.SceneManagement;
 public class MapSelect : MonoBehaviour
 {
     public GameObject adminPanel;
+    public GameObject adminOnlinePanel;
+    public GameObject serverPanel;
     public GameObject mapLocalNameIF;
     public GameObject mapServerNameIF;
     public GameObject mapSolutionNameIF;
@@ -39,6 +41,17 @@ public class MapSelect : MonoBehaviour
             adminPanel.SetActive(true);
 
         }
+
+        if (!UserInfo.Instance.isOnline)
+        {
+            serverPanel.SetActive(false);
+            adminOnlinePanel.SetActive(false);
+        }
+        else
+        {
+            serverPanel.SetActive(true);
+            adminOnlinePanel.SetActive(true);
+        }
     }
 
     public void UpdateMapManagerReferences()
@@ -54,7 +67,8 @@ public class MapSelect : MonoBehaviour
         MapManager.Instance.objectDropdownSolution = objectDropdownSolution;
 
         MapManager.Instance.mapEntryToLoad = null;
-        MapManager.Instance.GetServerMapList();
+        if (UserInfo.Instance.isOnline)
+            MapManager.Instance.GetServerMapList();
     }
 
     public void LoadLocalMapBtn()
@@ -64,12 +78,29 @@ public class MapSelect : MonoBehaviour
 
     public void LoadServerMapBtn()
     {
-        MapManager.Instance.LoadServerMap();
+        if (UserInfo.Instance.isOnline)
+        {
+            MapManager.Instance.LoadServerMap();
+
+        }
+        else
+        {
+
+        }
     }
 
     public void LoadServerSolutionBtn()
     {
-        MapManager.Instance.LoadSolutionMap();
+        if (UserInfo.Instance.isOnline)
+        {
+            MapManager.Instance.LoadSolutionMap();
+
+        }
+        else
+        {
+
+        }
+
     }
 
     public void CreateMapBtn()

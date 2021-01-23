@@ -62,7 +62,7 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (zalogowany)
         {
-            //UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken);
+            UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken, czyTrybOnline);
             SceneManager.LoadScene(1);
         }
     } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

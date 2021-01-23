@@ -17,7 +17,7 @@ public class MapEditor : MonoBehaviour
     public InputField tempGlobal;
     public InputField tempMinInput;
     public InputField tempMaxInput;
-
+    public GameObject saveServerButton;
     public Tile.TERRAIN_TYPE selectedTerrainType;
     private TileComponent tileHit;
 
@@ -25,7 +25,7 @@ public class MapEditor : MonoBehaviour
 
     public bool isEditingTerrain = false;
 
-    private bool userCanEdit = false;
+    private bool userCanEdit = true;
     private void Awake()
     {
         Instance = this;
@@ -55,6 +55,15 @@ public class MapEditor : MonoBehaviour
             userOptions.SetActive(false);
         }
 
+        if (!UserInfo.Instance.isOnline)
+        {
+            saveServerButton.SetActive(false);
+        }
+        else
+        {
+            saveServerButton.SetActive(true);
+        }
+
         if (MapManager.Instance.currentGameData != null)
         {
             Debug.Log("Found game data on load, loading map!");
@@ -78,10 +87,10 @@ public class MapEditor : MonoBehaviour
 
             }
         }
-        if (Input.GetMouseButtonDown(1))
-        {
-            isEditingTerrain = false;
-        }
+        //if (Input.GetMouseButtonDown(1))
+        //{
+        //   // isEditingTerrain = false;
+        //}
 
     }
 
@@ -203,7 +212,7 @@ public class MapEditor : MonoBehaviour
 
     public void SelectTerrain(int option)
     {
-        isEditingTerrain = true;
+        //isEditingTerrain = true;
         switch (option)
         {
             case 0:
@@ -223,6 +232,11 @@ public class MapEditor : MonoBehaviour
     public void UserCanEdit(bool canEdit)
     {
         userCanEdit = canEdit;
+    }
+
+    public void EditIsOn(bool isEditing)
+    {
+        isEditingTerrain = isEditing;
     }
 
     public void SwitchHeatView()

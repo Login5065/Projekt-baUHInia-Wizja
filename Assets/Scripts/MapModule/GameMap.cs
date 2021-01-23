@@ -84,7 +84,7 @@ public class GameMap : MonoBehaviour
                     Quaternion.identity,
                     tileHolder.transform
                 );
-                hexGameObject.layer = LayerMask.GetMask("MapTile");
+                hexGameObject.layer = LayerMask.NameToLayer("MapTile");
 
                 hexGameObject.name = string.Format("TILE: {0},{1}", column, row);
                 TileComponent tileComponent = hexGameObject.GetComponent<TileComponent>();

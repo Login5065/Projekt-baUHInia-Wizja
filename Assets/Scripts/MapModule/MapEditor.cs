@@ -70,7 +70,7 @@ public class MapEditor : MonoBehaviour
             gameData = MapManager.Instance.currentGameData;
             map.LoadMap(gameData.mapName);
         }
-
+        selectedTerrainType = Tile.TERRAIN_TYPE.WATER;
     }
 
 

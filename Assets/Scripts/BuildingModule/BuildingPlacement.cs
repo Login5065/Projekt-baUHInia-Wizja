@@ -210,6 +210,10 @@ public class BuildingPlacement : MonoBehaviour
                 {
                     return false;
                 }
+                if(obiekt.GetComponent<TileComponent>().tile.canPlaceObjects == false)
+                {
+                    return false;
+                }
             }
         }
         return true;

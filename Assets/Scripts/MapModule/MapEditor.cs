@@ -93,16 +93,20 @@ public class MapEditor : MonoBehaviour
         {
             if ((tileHit = rayHit.collider.GetComponent<TileComponent>()) != null)
             {
-                tileHit.tile.TerrainType = selectedTerrainType;
-                if (selectedTerrainType == Tile.TERRAIN_TYPE.WATER)
+                if(tileHit.tile.objectPlaced==false)
                 {
-                    tileHit.tile.canPlaceObjects = false;
+                    tileHit.tile.TerrainType = selectedTerrainType;
+                    if (selectedTerrainType == Tile.TERRAIN_TYPE.WATER)
+                    {
+                        tileHit.tile.canPlaceObjects = false;
+                    }
+                    else
+                    {
+                        tileHit.tile.canPlaceObjects = userCanEdit;
+                    }
+                    tileHit.UpdateTerrain();
                 }
-                else
-                {
-                    tileHit.tile.canPlaceObjects = userCanEdit;
-                }
-                tileHit.UpdateTerrain();
+                
             }
         }
     }

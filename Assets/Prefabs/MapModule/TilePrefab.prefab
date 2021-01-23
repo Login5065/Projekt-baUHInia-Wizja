@@ -151,6 +151,8 @@ MonoBehaviour:
   matGrass: {fileID: 2100000, guid: 60ed6fa36d7fbba46bd70ea68e06d32d, type: 2}
   matEarth: {fileID: 2100000, guid: 1da1619f6b4fbeb49b08f9bf3a9dfa7e, type: 2}
   matTemperature: {fileID: 2100000, guid: 77611a7946b97d04a8b11501c2fa8d6d, type: 2}
+  matUserPlaceTrue: {fileID: 2100000, guid: 8e5f29b5e1271d1478b1590709388c1b, type: 2}
+  matUserPlaceFalse: {fileID: 2100000, guid: 6006aa45178ddfc45969ed667145b81a, type: 2}
   gradient:
     serializedVersion: 2
     key0: {r: 0.23113209, g: 0.5728511, b: 1, a: 1}

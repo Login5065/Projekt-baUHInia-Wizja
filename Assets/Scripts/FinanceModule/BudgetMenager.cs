@@ -128,6 +128,7 @@ public class BudgetMenager : MonoBehaviour
         setInfoText();
         FindObjectOfType<Score>().isNewBestScore();
         FindObjectOfType<Score>().setScoreText();
+        FindObjectOfType<Score>().setCurrentScoreText();
     }
 
     public void setBudgetAmount()

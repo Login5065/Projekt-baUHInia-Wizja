@@ -9,6 +9,7 @@ public class Score : MonoBehaviour
     public int bestScore = 0;
     public int currentScore;
     public Text scoretext;
+    public Text currenttext;
 
     void Start()
     {
@@ -35,5 +36,12 @@ public class Score : MonoBehaviour
     {
         int tmp = bestScore;
         scoretext.text = "Best Score: " + tmp.ToString();
+    }
+
+    public void setCurrentScoreText()
+    {
+        currentScore = MapHeat.Instance.ReturnHeatScore();
+        int tmp = currentScore;
+        currenttext.text = "Current Score: " + tmp.ToString();
     }
 }

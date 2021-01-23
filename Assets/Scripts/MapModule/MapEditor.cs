@@ -152,6 +152,8 @@ public class MapEditor : MonoBehaviour
         MapHeat.Instance.heatData.tempMin = tempMin;
         MapHeat.Instance.heatData.tempMax = tempMax;
         MapHeat.Instance.heatData.tempMax = global;
+
+        MapHeat.Instance.CalculateTemperature(GameMap.Instance.mapData.tiles);
     }
 
     public void LoadMap()

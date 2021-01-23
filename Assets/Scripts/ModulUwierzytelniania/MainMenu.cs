@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -9,6 +10,10 @@ public class MainMenu : MonoBehaviour
     public static bool isAdmin;
     public static string accessToken;
     public static string refreshToken;
+    public static bool czyTrybOnline;   //true - komunikujemy sie z serwerem, false - offline
+                                        //public static string login;
+                                        //Dictionary<login,  Tuple<email,  haslo,  isAdmin>>
+    private static Dictionary<string, Tuple<string, string, bool>> users = new Dictionary<string, Tuple<string, string, bool>>();
     public GameObject Login1IF;
     public GameObject Login2IF;
     public GameObject Registration1IF;
@@ -17,6 +22,7 @@ public class MainMenu : MonoBehaviour
     public GameObject Registration4IF;
     public GameObject ErrorText;
     public GameObject Toggle;
+    public GameObject ToggleTryb;
     public Button ZalogujSieBtn;
     public Button ZarejestrujSieBtn;
     public Button ExitBtn;
@@ -26,9 +32,11 @@ public class MainMenu : MonoBehaviour
 
 
 
+
     // Start is called before the first frame update
     void Start()
     {
+        ToggleTryb.GetComponent<Toggle>().isOn = czyTrybOnline;
         Toggle.GetComponent<Toggle>().isOn = false;
         Toggle.SetActive(false);
         zalogowany = false;
@@ -39,7 +47,14 @@ public class MainMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (czyTrybOnline != ToggleTryb.GetComponent<Toggle>().isOn)
+        {
+            if (zalogowany)
+            {
+                Logout();
+            }
+        }
+        czyTrybOnline = ToggleTryb.GetComponent<Toggle>().isOn;
     }
 
     public void StartGame() //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -47,13 +62,41 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(); //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if (zalogowany)
         {
-            UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken);
+            //UserInfo.Instance.SetUserInfo(Login1IF.GetComponent<InputField>().text, isAdmin, accessToken, refreshToken);
             SceneManager.LoadScene(1);
         }
     } //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     public void Login()
     {
-        StartCoroutine(LoginCoroutine());
+        if (czyTrybOnline)
+        {
+            StartCoroutine(LoginCoroutine());
+        }
+        else
+        {
+            TurnOffButtons();
+            if (users.TryGetValue(Login1IF.GetComponent<InputField>().text, out Tuple<string, string, bool> tuple))
+            {
+                if (Login2IF.GetComponent<InputField>().text.Equals(tuple.Item2))
+                {
+                    zalogowany = true;
+                    isAdmin = tuple.Item3;
+                    Toggle.SetActive(isAdmin);
+                    //login = Login1IF.GetComponent<InputField>().text;
+                    ErrorText.GetComponent<Text>().text = "Zalogowano!";
+                }
+                else
+                {
+                    ErrorText.GetComponent<Text>().text = "Błędne hasło!";
+                }
+            }
+            else
+            {
+                ErrorText.GetComponent<Text>().text = "Nie znaleziona takiego użytkownika!";
+            }
+            TurnOnButtons();
+        }
+
     }
 
     IEnumerator LoginCoroutine()
@@ -109,7 +152,55 @@ public class MainMenu : MonoBehaviour
 
     public void Registration()
     {
-        StartCoroutine(RegistrationCoroutine());
+
+        if (czyTrybOnline)
+        {
+            StartCoroutine(RegistrationCoroutine());
+        }
+        else
+        {
+            TurnOffButtons();
+            string login;
+            string haslo;
+            string email;
+            bool czyAdmin;
+
+            bool specialAdmin = false;
+            if (Registration1IF.GetComponent<InputField>().text.Equals("Admin"))
+            {
+                if (Registration2IF.GetComponent<InputField>().text.Equals("Admin"))
+                {
+                    if (Registration3IF.GetComponent<InputField>().text.Equals("Admin"))
+                    {
+                        if (Registration4IF.GetComponent<InputField>().text.Equals("Admin"))
+                        {
+                            specialAdmin = true;
+                        }
+                    }
+                }
+            }
+            if ((CheckRegistrationPassword() || specialAdmin) && !users.ContainsKey(Registration1IF.GetComponent<InputField>().text)) //sprawdzenie warunkow hasla
+            {
+                if (specialAdmin)
+                {
+                    czyAdmin = true;
+                }
+                else
+                {
+                    czyAdmin = Toggle.GetComponent<Toggle>().isOn;
+                }
+                login = Registration1IF.GetComponent<InputField>().text;
+                haslo = Registration2IF.GetComponent<InputField>().text;
+                email = Registration4IF.GetComponent<InputField>().text;
+                users.Add(login, new Tuple<string, string, bool>(email, haslo, czyAdmin));
+                ErrorText.GetComponent<Text>().text = "Zarejestrowano!";
+            }
+            else if (users.ContainsKey(Registration1IF.GetComponent<InputField>().text))
+            {
+                ErrorText.GetComponent<Text>().text = "Użytkownik już istnieje!";
+            }
+            TurnOnButtons();
+        }
     }
 
     IEnumerator RegistrationCoroutine()
@@ -272,7 +363,21 @@ public class MainMenu : MonoBehaviour
 
     public void Logout()
     {
-        StartCoroutine(LogoutCoroutine());
+
+        if (czyTrybOnline)
+        {
+            StartCoroutine(LogoutCoroutine());
+        }
+        else
+        {
+            TurnOffButtons();
+            Toggle.GetComponent<Toggle>().isOn = false;
+            Toggle.SetActive(false);
+            isAdmin = false;
+            zalogowany = false;
+            ErrorText.GetComponent<Text>().text = "Wylogowano!";
+            TurnOnButtons();
+        }
     }
 
     IEnumerator LogoutCoroutine()
@@ -315,7 +420,7 @@ public class MainMenu : MonoBehaviour
         bool good = true;
         if (Registration2IF.GetComponent<InputField>().text.Equals(Registration3IF.GetComponent<InputField>().text))
         {
-            good=CheckRegistrationPasswordStrength();
+            good = CheckRegistrationPasswordStrength();
         }
         else
         {
@@ -370,30 +475,30 @@ public class MainMenu : MonoBehaviour
 
     void OtherError(Response response)
     {
-        if(response.status == Response.ResponseType.RES_ERROR_GENERAL)
+        if (response.status == Response.ResponseType.RES_ERROR_GENERAL)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_GENERAL";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_HTTP)
+        if (response.status == Response.ResponseType.RES_ERROR_HTTP)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_HTTP";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_NETWORK)
+        if (response.status == Response.ResponseType.RES_ERROR_NETWORK)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_NETWORK";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_BAD_TOKEN)
+        if (response.status == Response.ResponseType.RES_ERROR_BAD_TOKEN)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_BAD_TOKEN";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_INSUFFICIENT)
+        if (response.status == Response.ResponseType.RES_ERROR_INSUFFICIENT)
         {
             ErrorText.GetComponent<Text>().text = "Nie podano wszystkich danych!";
         }
-        if(response.status == Response.ResponseType.RES_ERROR_NO_TOKEN)
+        if (response.status == Response.ResponseType.RES_ERROR_NO_TOKEN)
         {
             ErrorText.GetComponent<Text>().text = "RES_ERROR_NO_TOKEN";
-        }  
+        }
     }
 
     void TurnOffButtons()
@@ -403,12 +508,14 @@ public class MainMenu : MonoBehaviour
         ExitBtn.GetComponent<Button>().interactable = false;
         StartBtn.GetComponent<Button>().interactable = false;
         WylogujSieBtn.GetComponent<Button>().interactable = false;
+        ToggleTryb.GetComponent<Toggle>().interactable = false;
     }
 
     void TurnOnButtons()
     {
         ZarejestrujSieBtn.GetComponent<Button>().interactable = true;
         ExitBtn.GetComponent<Button>().interactable = true;
+        ToggleTryb.GetComponent<Toggle>().interactable = true;
         ButtonsForLogged();
     }
 
